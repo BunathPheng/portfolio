@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Suwannaphum:wght@100;300;400;700;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: "Inter", serif;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(8,11,30);
+  background: linear-gradient(90deg, rgba(8,11,30,1) 0%, rgb(11, 45, 119) 90%);
+  background-size: 400% 400%;
+  z-index: -1;
+  animation: scrollGradient 15s ease infinite;
+}
+
+@keyframes scrollGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
