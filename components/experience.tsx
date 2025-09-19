@@ -32,60 +32,62 @@ export default function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-20 px-4 relative">
+    <section id="experience" className="py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 relative">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             Work{" "}
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               Experience
             </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full"></div>
+          <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full"></div>
         </div>
 
         <div className="relative">
-          <div className="absolute left-4 w-1 h-full bg-gradient-to-b from-purple-600 to-pink-600 rounded-full lg:left-1/2 lg:transform lg:-translate-x-1/2"></div>
+          {/* Vertical timeline line, hidden on mobile */}
+          <div className="hidden sm:block absolute left-4 sm:left-1/2 sm:transform sm:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 to-pink-600 rounded-full"></div>
 
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {experiences.map((exp, index) => (
               <div
                 key={index}
-                className={`flex flex-col lg:flex-row items-start lg:items-center ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} relative`}
+                className={`flex flex-col sm:flex-row items-start sm:items-center ${index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} relative`}
               >
-                <div className="relative z-10 flex items-center justify-center w-4 h-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full border-4 border-slate-900 ml-3.5 lg:ml-0 lg:mx-8 my-4 lg:my-0">
+                {/* Timeline marker */}
+                <div className="relative z-10 flex items-center justify-center w-4 h-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full border-4 border-slate-900 ml-3.5 sm:ml-0 sm:mx-8 my-4 sm:my-0">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
                 </div>
 
-                <div className="flex-1 pl-10 lg:pl-0 lg:pr-8 w-full">
+                <div className="flex-1 pl-10 sm:pl-0 sm:pr-8 w-full">
                   <div
-                    className={`bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 ${
-                      index % 2 === 0 ? "lg:mr-8" : "lg:ml-8"
+                    className={`bg-white/5 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 ${
+                      index % 2 === 0 ? "sm:mr-8" : "sm:ml-8"
                     }`}
                   >
                     <div className="space-y-4">
                       <div className="flex items-center space-x-2 text-purple-400">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm font-medium">{exp.period}</span>
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span className="text-xs sm:text-sm font-medium">{exp.period}</span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                      <div className="flex items-center space-x-2 text-gray-400">
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{exp.title}</h3>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-gray-400">
                         <span className="font-medium">{exp.company}</span>
-                        <span>•</span>
+                        <span className="hidden sm:inline">•</span>
                         <div className="flex items-center space-x-1">
-                          <MapPin className="w-4 h-4" />
-                          <span className="text-sm">{exp.location}</span>
+                          <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="text-xs sm:text-sm">{exp.location}</span>
                         </div>
                       </div>
 
-                      <p className="text-gray-300 leading-relaxed">{exp.description}</p>
+                      <p className="text-gray-300 text-sm sm:text-base leading-relaxed">{exp.description}</p>
 
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs font-medium"
+                            className="px-2 sm:px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs font-medium"
                           >
                             {tech}
                           </span>
@@ -95,7 +97,7 @@ export default function Experience() {
                   </div>
                 </div>
 
-                <div className="flex-1 lg:pl-8 hidden lg:block"></div>
+                <div className="flex-1 sm:pl-8 hidden sm:block"></div>
               </div>
             ))}
           </div>
