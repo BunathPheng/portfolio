@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <LoadingScreen />
       <CursorFollower />
-      <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      <main className="min-h-screen bg-liquid-glass relative overflow-hidden">
         <ParticleBackground />
         <FloatingElements />
         <div className="relative z-10">

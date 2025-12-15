@@ -19,22 +19,95 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
+/* Liquid Glass Color Variables */
+@layer base {
+  :root {
+    /* DevOps-inspired palette: deep navy base, cyan + lime accents */
+    --background: 222 35% 7%;
+    --foreground: 210 15% 96%;
+    
+    /* Card with glass effect */
+    --card: 222 30% 11%;
+    --card-foreground: 210 15% 96%;
+    
+    /* Popover with glass effect */
+    --popover: 222 30% 11%;
+    --popover-foreground: 210 15% 96%;
+    
+    /* Primary - Bright cyan */
+    --primary: 190 90% 55%;
+    --primary-foreground: 222 35% 7%;
+    
+    /* Secondary - Steel blue */
+    --secondary: 215 70% 52%;
+    --secondary-foreground: 210 15% 96%;
+    
+    /* Muted - Cool gray-blue */
+    --muted: 215 25% 25%;
+    --muted-foreground: 210 12% 72%;
+    
+    /* Accent - Lime for DevOps energy */
+    --accent: 100 70% 55%;
+    --accent-foreground: 222 35% 7%;
+    
+    /* Destructive */
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 210 15% 96%;
+    
+    /* Borders with glass effect */
+    --border: 215 22% 28%;
+    --input: 215 22% 28%;
+    --ring: 190 90% 55%;
+    
+    /* Chart colors */
+    --chart-1: 190 90% 55%;
+    --chart-2: 215 70% 52%;
+    --chart-3: 100 70% 55%;
+    --chart-4: 260 35% 55%;
+    --chart-5: 30 75% 55%;
+    
+    --radius: 0.75rem;
+    
+    /* Sidebar */
+    --sidebar-background: 222 30% 9%;
+    --sidebar-foreground: 210 15% 95%;
+    --sidebar-primary: 190 90% 55%;
+    --sidebar-primary-foreground: 222 35% 7%;
+    --sidebar-accent: 215 25% 20%;
+    --sidebar-accent-foreground: 210 15% 95%;
+    --sidebar-border: 215 22% 24%;
+    --sidebar-ring: 190 90% 55%;
+  }
+}
+
+/* Custom scrollbar - Liquid Glass Style */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: hsl(220 30% 10%);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #8b5cf6, #ec4899);
-  border-radius: 4px;
+  background: linear-gradient(
+    180deg,
+    hsl(180 100% 50% / 0.6),
+    hsl(270 70% 60% / 0.6),
+    hsl(320 70% 60% / 0.6)
+  );
+  border-radius: 10px;
+  border: 2px solid hsl(220 30% 10%);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #7c3aed, #db2777);
+  background: linear-gradient(
+    180deg,
+    hsl(180 100% 50% / 0.8),
+    hsl(270 70% 60% / 0.8),
+    hsl(320 70% 60% / 0.8)
+  );
 }
 
 /* Animations */
@@ -49,21 +122,138 @@ body {
   }
 }
 
+@keyframes liquidFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes glassShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Glassmorphism effect */
+.animate-liquid-flow {
+  animation: liquidFlow 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* Enhanced Glassmorphism effects - Liquid Glass */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.1) 0%,
+    rgba(138, 43, 226, 0.1) 50%,
+    rgba(255, 20, 147, 0.1) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.glass-strong {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.15) 0%,
+    rgba(138, 43, 226, 0.15) 50%,
+    rgba(255, 20, 147, 0.15) 100%
+  );
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 255, 255, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.glass-subtle {
+  background: rgba(0, 255, 255, 0.05);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Gradient text */
+/* Liquid Glass Gradient Text */
 .gradient-text {
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  background: linear-gradient(
+    135deg,
+    #22d3ee 0%,
+    #3b82f6 45%,
+    #7ce94f 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-size: 200% 200%;
+  animation: liquidFlow 5s ease infinite;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #22d3ee, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-purple {
+  background: linear-gradient(135deg, #3b82f6, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Liquid Glass Background Gradients */
+.bg-liquid-glass {
+  background: linear-gradient(
+    135deg,
+    #0b1220 0%,
+    #0f1729 25%,
+    #111b2f 50%,
+    #0f1729 75%,
+    #0b1220 100%
+  );
+  background-size: 400% 400%;
+  animation: liquidFlow 15s ease infinite;
+}
+
+/* Glass border glow effect */
+.glass-glow {
+  position: relative;
+}
+
+.glass-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.5),
+    rgba(138, 43, 226, 0.5),
+    rgba(255, 20, 147, 0.5)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-glow:hover::before {
+  opacity: 1;
 }

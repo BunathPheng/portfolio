@@ -10,7 +10,7 @@ import profile from "../portfolio/src/image/Nath.jpg";
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0)
-  const roles = ["Software Engineer", "Web Developer", "Problem Solver", "Full Stack Developer"]
+  const roles = ["DevOps Engineer", "Problem Solver", "Full-Stack Developer"]
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,8 +20,14 @@ export default function Hero() {
   }, [])
 
   const handleDownloadCV = () => {
-    const pdfUrl = "https://drive.google.com/file/d/1x7fqFM2auMSS8N_KpNKfw_-bYdfVGHRf/view"
-    window.open(pdfUrl, "_blank")
+    const pdfUrl = "/cv/Pheng%20Bunath.pdf"
+    const anchor = document.createElement("a")
+    anchor.href = pdfUrl
+    anchor.download = "Pheng-Bunath-CV.pdf"
+    anchor.rel = "noopener"
+    document.body.appendChild(anchor)
+    anchor.click()
+    document.body.removeChild(anchor)
   }
 
   const containerVariants: Variants = {
@@ -64,7 +70,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-lg text-purple-400 font-medium flex items-center justify-center lg:justify-start gap-2"
+              className="text-lg text-[#22d3ee] font-medium flex items-center justify-center lg:justify-start gap-2"
             >
               <Sparkles className="w-5 h-5" />
               Hello, I'm
@@ -72,7 +78,7 @@ export default function Hero() {
 
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-bold text-white leading-tight">
               Pheng{" "}
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent animate-pulse">
+              <span className="gradient-text">
                 Bunath
               </span>
             </motion.h1>
@@ -84,7 +90,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-yellow-400 font-semibold"
+                className="text-[#22d3ee] font-semibold"
               >
                 {roles[currentRole]}
               </motion.span>
@@ -92,8 +98,8 @@ export default function Hero() {
           </motion.div>
 
           <motion.p variants={itemVariants} className="text-lg text-gray-400 max-w-2xl leading-relaxed">
-            A passionate Full-Stack Developer with expertise in modern web technologies. I create beautiful, functional,
-            and user-centered digital experiences that make a difference.
+            A passionate DevOps Engineer and Full-Stack Developer focused on cloud, CI/CD, and reliable delivery. I build
+            pipelines, ship resilient services, and create user-centered experiences that make a difference.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex justify-center lg:justify-start space-x-6">
@@ -120,9 +126,9 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className={`p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all duration-300 group ${color}`}
+                className={`p-3 glass-subtle rounded-full hover:glass transition-all duration-300 group ${color}`}
               >
-                <Icon className="w-6 h-6 text-purple-400 group-hover:text-white transition-colors" />
+                <Icon className="w-6 h-6 text-[#22d3ee] group-hover:text-white transition-colors" />
               </motion.a>
             ))}
           </motion.div>
@@ -130,10 +136,10 @@ export default function Hero() {
           <motion.div variants={itemVariants}>
             <Button
               onClick={handleDownloadCV}
-              className="bg-gradient-to-r from-purple-600 via-pink-600 to-yellow-600 hover:from-purple-700 hover:via-pink-700 hover:to-yellow-700 text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-purple-500/25 relative overflow-hidden group"
+              className="bg-gradient-to-r from-[#22d3ee] via-[#3b82f6] to-[#7ce94f] hover:from-[#38bdf8] hover:via-[#60a5fa] hover:to-[#9ef27a] text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#22d3ee]/25 relative overflow-hidden group"
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] via-[#7ce94f] to-[#3b82f6] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 initial={false}
               />
               <span className="relative z-10 flex items-center">
@@ -156,14 +162,14 @@ export default function Hero() {
                 repeat: Number.POSITIVE_INFINITY,
                 ease: "easeInOut",
               }}
-              className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-yellow-600 rounded-full blur-3xl opacity-30"
+              className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] via-[#3b82f6] to-[#7ce94f] rounded-full blur-3xl opacity-30"
             />
 
             <motion.div
               whileHover={{ scale: 1.05, rotate: 2 }}
-              className="relative bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-purple-500/50 transition-all duration-300"
+              className="relative glass rounded-3xl p-8 hover:border-[#22d3ee]/50 transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-3xl animate-pulse" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#22d3ee]/10 to-[#7ce94f]/10 rounded-3xl animate-pulse" />
               <div className="relative w-full h-96 lg:h-[500px]">
                 {" "}
                 {/* Responsive height */}
@@ -180,7 +186,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                className="absolute -top-4 -right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+                className="absolute -top-4 -right-4 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg glass"
               >
                 Available for work
               </motion.div>

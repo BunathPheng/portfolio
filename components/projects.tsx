@@ -7,6 +7,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import englishImage from "../portfolio/src/image/English.jpg"
 import portfolioImage from "../portfolio/src/image/portfolio.jpg"
+import selamontyImage from "../portfolio/src/image/selamonty.png"
+import smartopsImage from "../portfolio/src/image/Final.png"
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [filter, setFilter] = useState("All")
@@ -14,52 +17,52 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "Hall Booking System",
+      title: "English Club: E-Learning Management System",
       description:
-        "A comprehensive hall booking management system built with Java. Features include real-time availability, booking management, and user authentication.",
+        "E2E learning flow: register, dashboard, learn via courses, quizzes, track progress; JWT-authenticated with REST APIs.",
       longDescription:
-        "This advanced hall booking system revolutionizes venue management with real-time availability tracking, automated booking confirmations, payment integration, and comprehensive admin dashboard. Built with modern Java frameworks and featuring a responsive design.",
-      image: "../portfolio/src/image/English.jpg",
-      technologies: ["Java", "MySQL", "Spring Boot", "Thymeleaf"],
-      category: "Backend",
-      liveUrl: "#",
-      githubUrl: "#",
-      featured: true,
-      stats: { stars: 45, forks: 12, views: 1200 },
-    },
-    {
-      id: 2,
-      title: "English Club Platform",
-      description:
-        "An interactive learning platform for English language learners with courses, quizzes, and progress tracking.",
-      longDescription:
-        "A comprehensive e-learning platform featuring interactive lessons, real-time progress tracking, gamification elements, and social learning features. Includes video streaming, quiz systems, and certificate generation.",
+        "Integrated frontend with backend RESTful APIs, implemented JWT authentication (NextAuth), and collaborated closely with backend to ensure smooth data flow. Covers user onboarding, course consumption, quizzes, and progress tracking with clear data movement across services.",
       image: englishImage,
-      technologies: ["React", "Node.js", "MongoDB", "Socket.io"],
-      category: "Full Stack",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "REST APIs", "JWT"],
+      category: "Frontend",
       liveUrl: "#",
       githubUrl: "#",
       featured: true,
       stats: { stars: 67, forks: 23, views: 2100 },
     },
     {
-      id: 3,
-      title: "Portfolio Website",
+      id: 2,
+      title: "SmartOps: Automation Platform",
       description:
-        "A modern, responsive portfolio website showcasing my projects and skills with smooth animations and modern UI.",
+        "Automates the deployment lifecycle from repo to production with GitOps-first workflows.",
       longDescription:
-        "A cutting-edge portfolio website built with Next.js 14, featuring advanced animations, 3D elements, particle systems, and modern UI/UX design principles. Optimized for performance and accessibility.",
-      image: portfolioImage,
-      technologies: ["Next.js", "Tailwind CSS", "TypeScript", "Framer Motion"],
-      category: "Frontend",
+        "CI/CD pipelines with Jenkins and GitHub Actions, GitOps delivery with Argo CD, containerized workloads on Docker/Kubernetes, and infrastructure automation with Ansible. Emphasizes reliability, speed, and traceability of releases.",
+      image: smartopsImage,
+      technologies: ["Jenkins", "GitHub Actions", "Argo CD", "Docker", "Kubernetes", "Ansible"],
+      category: "DevOps",
+      liveUrl: "#",
+      githubUrl: "#",
+      featured: true,
+      stats: { stars: 45, forks: 12, views: 1200 },
+    },
+    {
+      id: 3,
+      title: "Selamounty: Digital Cultural & Educational Hub",
+      description:
+        "Virtual museum platform bringing global history, art, and heritage into one experience.",
+      longDescription:
+        "Backend and platform work for content delivery, automated deployments, and scalable APIs serving global visitors. Focused on reliable rollout and performance for media-rich experiences.",
+      image: selamontyImage,
+      technologies: ["Java", "Spring Boot", "MySQL", "Jenkins", "Docker", "Nginx"],
+      category: "Platform",
       liveUrl: "#",
       githubUrl: "#",
       featured: false,
-      stats: { stars: 89, forks: 34, views: 3400 },
+      stats: { stars: 34, forks: 10, views: 1800 },
     },
   ]
 
-  const categories = ["All", "Frontend", "Backend", "Full Stack"]
+  const categories = ["All", "Frontend", "Full Stack", "DevOps", "Platform"]
   const filteredProjects = filter === "All" ? projects : projects.filter((p) => p.category === filter)
 
   return (
@@ -73,9 +76,9 @@ export default function Projects() {
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             Featured{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Projects</span>
+            <span className="gradient-text">Projects</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] mx-auto rounded-full"></div>
         </motion.div>
 
         {/* Filter Buttons */}
@@ -93,8 +96,8 @@ export default function Projects() {
               onClick={() => setFilter(category)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 filter === category
-                  ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                  : "bg-white/10 text-gray-300 hover:bg-white/20"
+                  ? "bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] text-white shadow-lg"
+                  : "glass-subtle text-gray-300 hover:glass"
               }`}
             >
               {category}
@@ -113,7 +116,7 @@ export default function Projects() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-300"
+                className="group relative glass-subtle rounded-2xl overflow-hidden hover:glass hover:border-[#22d3ee]/50 transition-all duration-300"
               >
                 {project.featured && (
                   <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold">
@@ -134,7 +137,7 @@ export default function Projects() {
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
-                    className="absolute inset-0 bg-purple-600/20 flex items-center justify-center space-x-4"
+                    className="absolute inset-0 bg-[#22d3ee]/20 flex items-center justify-center space-x-4"
                   >
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -148,7 +151,7 @@ export default function Projects() {
                       href={project.githubUrl}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                      className="p-3 glass rounded-full hover:glass-strong transition-colors"
                     >
                       <Code className="w-5 h-5 text-white" />
                     </motion.a>
@@ -157,10 +160,10 @@ export default function Projects() {
 
                 <div className="p-6 space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#22d3ee] transition-colors">
                       {project.title}
                     </h3>
-                    <div className="flex items-center space-x-1 text-yellow-400">
+                    <div className="flex items-center space-x-1 text-[#22d3ee]">
                       <Star className="w-4 h-4 fill-current" />
                       <span className="text-sm">{project.stats.stars}</span>
                     </div>
@@ -172,7 +175,7 @@ export default function Projects() {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-xs font-medium hover:bg-purple-600/30 transition-colors"
+                        className="px-3 py-1 bg-[#22d3ee]/20 text-[#22d3ee] rounded-full text-xs font-medium hover:bg-[#22d3ee]/30 transition-colors"
                       >
                         {tech}
                       </span>
@@ -183,7 +186,7 @@ export default function Projects() {
                     <div className="flex space-x-3">
                       <Button
                         size="sm"
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                        className="bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] hover:from-[#38bdf8] hover:to-[#9ef27a] text-white"
                       >
                         <ExternalLink className="w-4 h-4 mr-2" />
                         Live
@@ -221,7 +224,7 @@ export default function Projects() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-slate-900 rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-white/10"
+                className="glass-strong rounded-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto"
               >
                 {(() => {
                   const project = projects.find((p) => p.id === selectedProject)
@@ -252,14 +255,14 @@ export default function Projects() {
 
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech) => (
-                          <span key={tech} className="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm">
+                          <span key={tech} className="px-3 py-1 bg-[#22d3ee]/20 text-[#22d3ee] rounded-full text-sm">
                             {tech}
                           </span>
                         ))}
                       </div>
 
                       <div className="flex space-x-4">
-                        <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                        <Button className="bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] hover:from-[#38bdf8] hover:to-[#9ef27a]">
                           <ExternalLink className="w-4 h-4 mr-2" />
                           View Live
                         </Button>

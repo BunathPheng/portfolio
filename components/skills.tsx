@@ -14,22 +14,36 @@ import  Git  from "../portfolio/src/image/Git.png"
 import  Docker  from "../portfolio/src/image/Docker.png"
 import  PostgreSQL  from "../portfolio/src/image/postgres.png"
 import  Figma  from "../portfolio/src/image/Figma.png"
+import  JavaIcon  from "../portfolio/src/image/springboot.png"
+import  ProjectImg  from "../portfolio/src/image/nextjs.png"
+import  KubernetesImg  from "../portfolio/src/image/Kubernetes.png"
+import  HelmImg  from "../portfolio/src/image/Helm.png"
+import  JenkinsImg  from "../portfolio/src/image/jenkins.svg"
+import  ArgoImg  from "../portfolio/src/image/ArgoCD.png"
+import  AnsibleImg  from "../portfolio/src/image/ansible.png"
 
 export default function Skills() {
   const skills = [
     { name: "React", image: React, level: 90, category: "Frontend" },
+    { name: "Next.js", image: ProjectImg, level: 88, category: "Frontend" },
     { name: "JavaScript", image: JavaScript, level: 85, category: "Language" },
     { name: "HTML", image: HTML, level: 95, category: "Frontend" },
     { name: "CSS", image: CSS, level: 90, category: "Frontend" },
     { name: "Tailwind CSS", image: Tailwindcss, level: 88, category: "Framework" },
     { name: "Bootstrap", image: Bootstrap, level: 80, category: "Framework" },
+    { name: "Spring Boot", image: JavaIcon, level: 82, category: "Backend" },
     { name: "Git", image: Git, level: 85, category: "Tool" },
     { name: "Docker", image: Docker, level: 75, category: "DevOps" },
+    { name: "Kubernetes", image: KubernetesImg, level: 78, category: "DevOps" },
+    { name: "Helm", image: HelmImg, level: 74, category: "DevOps" },
+    { name: "Jenkins", image: JenkinsImg, level: 76, category: "DevOps" },
+    { name: "Argo CD", image: ArgoImg, level: 73, category: "DevOps" },
+    { name: "Ansible", image: AnsibleImg, level: 70, category: "DevOps" },
     { name: "PostgreSQL", image: PostgreSQL, level: 80, category: "Database" },
     { name: "Figma", image: Figma, level: 85, category: "Design" },
   ]
 
-  const categories = ["All", "Frontend", "Language", "Framework", "Tool", "DevOps", "Database", "Design"]
+  const categories = ["All", "Frontend", "Backend", "Language", "Framework", "Tool", "DevOps", "Database", "Design"]
   const [selectedCategory, setSelectedCategory] = useState("All")
 
   const filteredSkills =
@@ -47,9 +61,9 @@ export default function Skills() {
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             My{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Skills</span>
+            <span className="gradient-text">Skills</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] mx-auto rounded-full"></div>
         </motion.div>
 
         {/* Category Filter */}
@@ -67,8 +81,8 @@ export default function Skills() {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                  : "bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white"
+                  ? "bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] text-white shadow-lg"
+                  : "glass-subtle text-gray-300 hover:glass hover:text-white"
               }`}
             >
               {category}
@@ -90,7 +104,7 @@ export default function Skills() {
                 rotateY: 10,
                 boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)",
               }}
-              className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 cursor-pointer"
+              className="group relative glass-subtle rounded-2xl p-6 hover:glass hover:border-[#22d3ee]/50 transition-all duration-300 cursor-pointer"
             >
               <div className="text-center space-y-4">
                 <div className="relative w-16 h-16 mx-auto">
@@ -99,7 +113,7 @@ export default function Skills() {
                   </motion.div>
                 </div>
 
-                <h3 className="text-white font-medium group-hover:text-purple-400 transition-colors">{skill.name}</h3>
+                <h3 className="text-white font-medium group-hover:text-[#22d3ee] transition-colors">{skill.name}</h3>
 
                 <div className="relative">
                   <div className="w-full bg-gray-700 rounded-full h-2">
@@ -108,7 +122,7 @@ export default function Skills() {
                       whileInView={{ width: `${skill.level}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 1, delay: index * 0.1 }}
-                      className="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full relative overflow-hidden"
+                      className="bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] h-2 rounded-full relative overflow-hidden"
                     >
                       <motion.div
                         animate={{ x: ["-100%", "100%"] }}
@@ -120,7 +134,7 @@ export default function Skills() {
                   <span className="text-sm text-gray-400 mt-2 block">{skill.level}%</span>
                 </div>
 
-                <span className="text-xs text-purple-400 bg-purple-500/20 px-2 py-1 rounded-full">
+                <span className="text-xs text-[#22d3ee] bg-[#22d3ee]/20 px-2 py-1 rounded-full">
                   {skill.category}
                 </span>
               </div>
@@ -129,7 +143,7 @@ export default function Skills() {
               <motion.div
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
-                className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl"
+                className="absolute inset-0 bg-gradient-to-br from-[#22d3ee]/20 to-[#7ce94f]/20 rounded-2xl"
               />
             </motion.div>
           ))}

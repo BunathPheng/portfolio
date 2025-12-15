@@ -45,13 +45,13 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/20 backdrop-blur-md border-b border-white/10" : ""
+        scrolled ? "glass border-b border-white/20" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold gradient-text">
               Portfolio.
             </h1>
           </motion.div>
@@ -66,15 +66,15 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                   className={`px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg relative ${
                     activeSection === item.href.slice(1)
-                      ? "text-purple-400"
-                      : "text-gray-300 hover:text-white hover:bg-white/10"
+                      ? "text-[#22d3ee]"
+                      : "text-gray-300 hover:text-white hover:glass-subtle"
                   }`}
                 >
                   {item.label}
                   {activeSection === item.href.slice(1) && (
                     <motion.div
                       layoutId="activeSection"
-                      className="absolute inset-0 bg-purple-500/20 rounded-lg -z-10"
+                      className="absolute inset-0 bg-[#22d3ee]/20 rounded-lg -z-10"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -101,7 +101,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/90 backdrop-blur-md"
+            className="md:hidden glass-strong"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item, index) => (
