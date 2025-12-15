@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   icons: {
     icon: './portfolio/src/image/boynath.jpg',
   },
+  verification: {
+    google: 'dFlqqv_VSfa-potE3N-YKFKmK4PAF585d_6uBEYx1tU',
+  },
 }
 
 export default function RootLayout({
