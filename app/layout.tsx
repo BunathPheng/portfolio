@@ -24,7 +24,9 @@ export const metadata: Metadata = {
     images: ['/boynath.jpg'],
   },
   icons: {
-    icon: './portfolio/src/image/boynath.jpg',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   verification: {
     google: 'dFlqqv_VSfa-potE3N-YKFKmK4PAF585d_6uBEYx1tU',
