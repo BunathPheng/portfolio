@@ -1,5 +1,5 @@
 import Image from "next/image"
-import nath  from "../portfolio/src/image/boynath.jpg"
+import nath from "../portfolio/src/image/boynath.jpg"
 export default function About() {
   return (
     <section id="about" className="py-20 px-4 relative">

@@ -1,6 +1,7 @@
 import Hero from "@/components/hero"
 import About from "@/components/about"
 import Skills from "@/components/skills"
+import TechStackCluster from "@/components/tech-stack-cluster"
 import Projects from "@/components/projects"
 import Experience from "@/components/experience"
 import Education from "@/components/education"
@@ -25,6 +26,8 @@ export default function Home() {
           <Hero />
           <About />
           <Skills />
+          <div className="py-16 md:py-24" />
+          <TechStackCluster />
           <Projects />
           <Experience />
           <Education />

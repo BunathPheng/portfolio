@@ -51,6 +51,7 @@
       "eslint-plugin-react-refresh": "latest",
       "framer-motion": "^12.23.6",
       "globals": "latest",
+      "gsap": "^3.14.2",
       "input-otp": "1.4.1",
       "jiti": "latest",
       "jquery": "latest",

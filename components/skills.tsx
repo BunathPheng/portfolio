@@ -4,23 +4,23 @@ import { useState } from "react"
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import  React  from "../portfolio/src/image/React.png"
-import  JavaScript  from "../portfolio/src/image/Js.png"
-import  HTML  from "../portfolio/src/image/Html.png"
-import  CSS  from "../portfolio/src/image/Css.png"
-import  Tailwindcss  from "../portfolio/src/image/Tailwind.png"
-import  Bootstrap  from "../portfolio/src/image/Bootstrap.png"
-import  Git  from "../portfolio/src/image/Git.png"
-import  Docker  from "../portfolio/src/image/Docker.png"
-import  PostgreSQL  from "../portfolio/src/image/postgres.png"
-import  Figma  from "../portfolio/src/image/Figma.png"
-import  JavaIcon  from "../portfolio/src/image/springboot.png"
-import  ProjectImg  from "../portfolio/src/image/nextjs.png"
-import  KubernetesImg  from "../portfolio/src/image/Kubernetes.png"
-import  HelmImg  from "../portfolio/src/image/Helm.png"
-import  JenkinsImg  from "../portfolio/src/image/jenkins.svg"
-import  ArgoImg  from "../portfolio/src/image/ArgoCD.png"
-import  AnsibleImg  from "../portfolio/src/image/ansible.png"
+import React from "../portfolio/src/image/React.png"
+import JavaScript from "../portfolio/src/image/Js.png"
+import HTML from "../portfolio/src/image/Html.png"
+import CSS from "../portfolio/src/image/Css.png"
+import Tailwindcss from "../portfolio/src/image/Tailwind.png"
+import Bootstrap from "../portfolio/src/image/Bootstrap.png"
+import Git from "../portfolio/src/image/Git.png"
+import Docker from "../portfolio/src/image/Docker.png"
+import PostgreSQL from "../portfolio/src/image/postgres.png"
+import Figma from "../portfolio/src/image/Figma.png"
+import JavaIcon from "../portfolio/src/image/springboot.png"
+import ProjectImg from "../portfolio/src/image/nextjs.png"
+import KubernetesImg from "../portfolio/src/image/Kubernetes.png"
+import HelmImg from "../portfolio/src/image/Helm.png"
+import JenkinsImg from "../portfolio/src/image/jenkins.svg"
+import ArgoImg from "../portfolio/src/image/ArgoCD.png"
+import AnsibleImg from "../portfolio/src/image/ansible.png"
 
 export default function Skills() {
   const skills = [
@@ -79,11 +79,10 @@ export default function Skills() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                selectedCategory === category
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedCategory === category
                   ? "bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] text-white shadow-lg"
                   : "glass-subtle text-gray-300 hover:glass hover:text-white"
-              }`}
+                }`}
             >
               {category}
             </motion.button>
