@@ -27,8 +27,12 @@ export default function CursorFollower() {
     return () => {
       window.removeEventListener("mousemove", updateMousePosition)
       interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter)
-        el.removeEventListener("mouseleave", handleMouseLeave)
+        try {
+          el.removeEventListener("mouseenter", handleMouseEnter)
+          el.removeEventListener("mouseleave", handleMouseLeave)
+        } catch {
+          // Element may be gone (e.g. after navigation or loading screen)
+        }
       })
     }
   }, [])

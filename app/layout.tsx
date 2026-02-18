@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://buanth.site'),
   title: 'Pheng Bunath - DevOps Engineer & Full-Stack Developer Portfolio | phengbunath',
   description: 'Pheng Bunath (phengbunath) - DevOps Engineer & Full-Stack Developer. Expert in CI/CD pipelines, Kubernetes, Docker, cloud infrastructure, and modern web development. View projects, skills, and experience.',
   keywords: [
