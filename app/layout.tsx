@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -125,14 +124,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        <Script
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-          strategy="afterInteractive"
-          async
-          defer
-        />
-      </head>
+      <head />
       <body>
         <script
           type="application/ld+json"

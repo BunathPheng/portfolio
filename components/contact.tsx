@@ -21,33 +21,40 @@ export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileReady, setTurnstileReady] = useState<boolean | "failed">(false)
   const turnstileRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
+  // Load Turnstile script only when Contact is mounted (keeps it off root layout so site works if Cloudflare is unreachable)
   useEffect(() => {
-    const renderTurnstile = () => {
-      const win = typeof window !== "undefined" ? window : null
-      const turnstile = (win as { turnstile?: { render: (el: HTMLElement, opts: { sitekey: string; callback: (token: string) => void }) => string } })?.turnstile
-      if (!turnstile || !turnstileRef.current) return
-      if (widgetIdRef.current != null) return
-      widgetIdRef.current = turnstile.render(turnstileRef.current, {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: (token: string) => setTurnstileToken(token),
-        "expired-callback": () => setTurnstileToken(null),
-      } as { sitekey: string; callback: (token: string) => void; "expired-callback": () => void })
-    }
-    if (typeof window !== "undefined" && (window as { turnstile?: unknown }).turnstile) {
-      renderTurnstile()
+    if (typeof window === "undefined") return
+    const win = window as { turnstile?: unknown }
+    if (win.turnstile) {
+      setTurnstileReady(true)
       return
     }
-    const t = setInterval(() => {
-      if ((window as { turnstile?: unknown }).turnstile) {
-        clearInterval(t)
-        renderTurnstile()
-      }
-    }, 100)
-    return () => clearInterval(t)
+    const script = document.createElement("script")
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+    script.async = true
+    script.defer = true
+    script.onload = () => setTurnstileReady(true)
+    script.onerror = () => setTurnstileReady("failed")
+    document.body.appendChild(script)
+    return () => {
+      script.remove()
+    }
   }, [])
+
+  useEffect(() => {
+    if (turnstileReady !== true || !turnstileRef.current || widgetIdRef.current != null) return
+    const win = window as { turnstile?: { render: (el: HTMLElement, opts: { sitekey: string; callback: (token: string) => void; "expired-callback": () => void }) => string } }
+    if (!win.turnstile) return
+    widgetIdRef.current = win.turnstile.render(turnstileRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token: string) => setTurnstileToken(token),
+      "expired-callback": () => setTurnstileToken(null),
+    })
+  }, [turnstileReady])
 
   const validate = () => {
     if (!formData.name.trim() || formData.name.trim().length < 2) return "Please enter your name."
@@ -55,7 +62,8 @@ export default function Contact() {
     if (!emailPattern.test(formData.email.trim())) return "Please enter a valid email."
     if (!formData.subject.trim() || formData.subject.trim().length < 3) return "Subject should be at least 3 characters."
     if (!formData.message.trim() || formData.message.trim().length < 10) return "Message should be at least 10 characters."
-    if (!turnstileToken) return "Please complete the verification check."
+    if (turnstileReady === "failed") return "Verification is temporarily unavailable. Please try again later."
+    if (turnstileReady !== true || !turnstileToken) return "Please complete the verification check."
     return null
   }
 
@@ -213,11 +221,14 @@ export default function Contact() {
               </div>
 
               <div ref={turnstileRef} className="min-h-[65px]" />
+              {turnstileReady === "failed" && (
+                <p className="text-sm text-amber-400">Verification could not load. You can try again later or email directly.</p>
+              )}
 
               <div className="space-y-3">
                 <Button
                   type="submit"
-                  disabled={status === "loading" || !turnstileToken}
+                  disabled={status === "loading" || turnstileReady !== true || !turnstileToken}
                   className="w-full bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] hover:from-[#38bdf8] hover:to-[#9ef27a] text-white py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 disabled:opacity-60"
                 >
                   <Send className="w-5 h-5 mr-2" />
