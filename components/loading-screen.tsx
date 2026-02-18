@@ -8,10 +8,11 @@ export default function LoadingScreen() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    let timer: ReturnType<typeof setInterval> | null = null
+    timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(timer)
+          if (timer) clearInterval(timer)
           setTimeout(() => setLoading(false), 500)
           return 100
         }
@@ -19,7 +20,12 @@ export default function LoadingScreen() {
       })
     }, 50)
 
-    return () => clearInterval(timer)
+    // Always hide loading after 4s so the portfolio shows even if progress gets stuck
+    const fallback = setTimeout(() => setLoading(false), 4000)
+    return () => {
+      if (timer) clearInterval(timer)
+      clearTimeout(fallback)
+    }
   }, [])
 
   return (
