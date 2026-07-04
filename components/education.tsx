@@ -1,96 +1,40 @@
 import { GraduationCap, Calendar } from "lucide-react"
-import Image from "next/image"
-import edu from "../portfolio/src/image/eduction.png"
+import { SectionHeader, FadeIn } from "@/components/section-header"
+import { education } from "@/lib/content"
+
 export default function Education() {
-  const education = [
-    {
-      degree: "Bachelor of Computer Science",
-      field: "Royal University of Phnom Penh (RUPP)",
-      school: "Royal University of Phnom Penh",
-      period: "Jan 2022 - Present",
-      description: "Comprehensive CS curriculum with focus on software engineering and systems.",
-    },
-    {
-      degree: "Advanced Course: DevOps",
-      field: "Korea Software HRD Center (KSHRD)",
-      school: "Korea Software HRD Center",
-      period: "Jul 28 - Dec 11, 2025",
-      description:
-        "Modern CI/CD, containerization, cloud infrastructure, GitOps with Jenkins, GitHub Actions, Argo CD, Docker, and Kubernetes.",
-    },
-    {
-      degree: "Basic Course Training",
-      field: "Korea Software HRD Center (KSHRD)",
-      school: "Korea Software HRD Center",
-      period: "Feb 3 - Jul 10, 2025",
-      description:
-        "Foundation across Linux, Docker, Git, UI/UX, Java (J2SE/J2EE), HTML/CSS/JS, Tailwind CSS, PostgreSQL, and responsive web apps.",
-    },
-    {
-      degree: "Foundation 2 Generation",
-      field: "Institute of Science and Technology Advanced Development (ISTAD)",
-      school: "ISTAD",
-      period: "Jan 2025 - Present",
-      description: "Core software engineering foundations and collaborative projects.",
-    },
-  ]
-
   return (
-    <section id="education" className="py-20 px-4 relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-            My{" "}
-            <span className="gradient-text">
-              Education
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] mx-auto rounded-full"></div>
-        </div>
+    <section id="education" className="section-spacing">
+      <div className="section-container">
+        <SectionHeader
+          label="Education"
+          title="Academic background"
+          description="Formal education and specialized training in computer science, DevOps, and software engineering."
+        />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            {education.map((edu, index) => (
-              <div
-                key={index}
-                className="glass-subtle rounded-2xl p-6 hover:glass hover:border-[#22d3ee]/50 transition-all duration-300 hover:scale-105"
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2 text-[#22d3ee]">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-sm font-medium">{edu.period}</span>
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+          {education.map((item, index) => (
+            <FadeIn key={item.degree} delay={index * 0.06}>
+              <div className="group surface-card flex h-full flex-col !p-5 sm:!p-7">
+                <div className="mb-3 flex flex-col gap-3 sm:mb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-11 sm:w-11">
+                    <GraduationCap className="h-5 w-5" />
                   </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="p-3 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] rounded-xl">
-                      <GraduationCap className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <h3 className="text-xl font-bold text-white">{edu.degree}</h3>
-                      <p className="text-[#22d3ee] font-medium">{edu.field}</p>
-                      <p className="text-gray-400">{edu.school}</p>
-                      <p className="text-gray-300 text-sm leading-relaxed">{edu.description}</p>
-                    </div>
+                  <div className="inline-flex w-fit items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 text-[10px] font-medium text-muted-foreground sm:px-3 sm:text-xs">
+                    <Calendar className="h-3 w-3" />
+                    {item.period}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          <div className="flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] rounded-3xl blur-2xl opacity-20"></div>
-              <div className="relative glass rounded-3xl p-6">
-                <Image
-                  src={edu}
-                  alt="Education"
-                  width={400}
-                  height={500}
-                  className="rounded-2xl object-cover"
-                />
+                <h3 className="text-sm font-semibold text-foreground sm:text-base">{item.degree}</h3>
+                <p className="mt-1 text-xs font-medium text-primary sm:text-sm">{item.field}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">{item.school}</p>
+                <p className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground sm:mt-3 sm:text-sm">
+                  {item.description}
+                </p>
               </div>
-            </div>
-          </div>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>

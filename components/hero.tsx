@@ -1,28 +1,34 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Github, Linkedin, Download, Facebook, Send, Sparkles } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { motion, type Variants } from "framer-motion" // Import Variants
+import { Download, Github, Linkedin, Facebook, Send, ArrowRight, Sparkles } from "lucide-react"
 import Image from "next/image"
-import profile from "../portfolio/src/image/Nath.jpg";
+import { motion } from "framer-motion"
+import profile from "../portfolio/src/image/Nath.jpg"
+import MagneticButton from "@/components/magnetic-button"
+import { FadeIn } from "@/components/section-header"
 
+const socialLinks = [
+  { icon: Linkedin, href: "https://www.linkedin.com/in/bunath-pheng-71a41b318", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/BunathPheng", label: "GitHub" },
+  { icon: Send, href: "https://t.me/pheng_bunath", label: "Telegram" },
+  { icon: Facebook, href: "https://web.facebook.com/profile.php?id=100027603155423", label: "Facebook" },
+]
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0)
-  const roles = ["DevOps Engineer", "Problem Solver", "Full-Stack Developer"]
+  const roles = ["DevOps Engineer", "Full-Stack Developer", "Cloud Architect"]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentRole((prev) => (prev + 1) % roles.length)
-    }, 3000)
+    }, 3500)
     return () => clearInterval(interval)
-  }, [])
+  }, [roles.length])
 
   const handleDownloadCV = () => {
-    const pdfUrl = "/cv/Pheng%20Bunath.pdf"
     const anchor = document.createElement("a")
-    anchor.href = pdfUrl
+    anchor.href = "/cv/Pheng%20Bunath.pdf"
     anchor.download = "Pheng-Bunath-CV.pdf"
     anchor.rel = "noopener"
     document.body.appendChild(anchor)
@@ -30,170 +36,127 @@ export default function Hero() {
     document.body.removeChild(anchor)
   }
 
-  const containerVariants: Variants = {
-    // Explicitly type containerVariants
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  }
-
-  const itemVariants: Variants = {
-    // Explicitly type itemVariants
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  }
-
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center"
-      >
-        <div className="space-y-8 text-center lg:text-left">
-          <motion.div variants={itemVariants} className="space-y-4">
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-lg text-[#22d3ee] font-medium flex items-center justify-center lg:justify-start gap-2"
+    <section id="hero" className="relative flex min-h-[100dvh] items-center pt-24 pb-12 sm:pt-28 sm:pb-16">
+      <div className="section-container">
+        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div className="order-2 space-y-6 sm:space-y-8 lg:order-1">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary backdrop-blur-sm sm:px-4 sm:text-sm"
             >
-              <Sparkles className="w-5 h-5" />
-              Hello, I'm
-            </motion.p>
-
-            <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-              Pheng{" "}
-              <span className="gradient-text">
-                Bunath
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-            </motion.h1>
-
-            <motion.div variants={itemVariants} className="text-2xl lg:text-3xl text-gray-300">
-              And I'm a{" "}
-              <motion.span
-                key={currentRole}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="text-[#22d3ee] font-semibold"
-              >
-                {roles[currentRole]}
-              </motion.span>
+              <span className="truncate">Available for opportunities</span>
             </motion.div>
-          </motion.div>
 
-          <motion.p variants={itemVariants} className="text-lg text-gray-400 max-w-2xl leading-relaxed">
-            A passionate DevOps Engineer and Full-Stack Developer focused on cloud, CI/CD, and reliable delivery. I build
-            pipelines, ship resilient services, and create user-centered experiences that make a difference.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className="flex justify-center lg:justify-start space-x-6">
-            {[
-              {
-                icon: Facebook,
-                href: "https://web.facebook.com/profile.php?id=100027603155423",
-                label: "Facebook",
-                color: "hover:bg-blue-600",
-              },
-              { icon: Send, href: "https://t.me/pheng_bunath", label: "Telegram", color: "hover:bg-blue-500" },
-              {
-                icon: Linkedin,
-                href: "https://www.linkedin.com/in/bunath-pheng-71a41b318",
-                label: "LinkedIn",
-                color: "hover:bg-blue-700",
-              },
-              { icon: Github, href: "https://github.com/BunathPheng", label: "GitHub", color: "hover:bg-gray-700" },
-            ].map(({ icon: Icon, href, label, color }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                className={`p-3 glass-subtle rounded-full hover:glass transition-all duration-300 group ${color}`}
-              >
-                <Icon className="w-6 h-6 text-[#22d3ee] group-hover:text-white transition-colors" />
-              </motion.a>
-            ))}
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <Button
-              onClick={handleDownloadCV}
-              className="bg-gradient-to-r from-[#22d3ee] via-[#3b82f6] to-[#7ce94f] hover:from-[#38bdf8] hover:via-[#60a5fa] hover:to-[#9ef27a] text-white px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#22d3ee]/25 relative overflow-hidden group"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-4 sm:space-y-5"
             >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] via-[#7ce94f] to-[#3b82f6] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={false}
-              />
-              <span className="relative z-10 flex items-center">
-                <Download className="w-5 h-5 mr-2" />
+              <p className="text-base font-medium text-muted-foreground sm:text-lg md:text-xl">
+                Hi, I&apos;m{" "}
+                <motion.span
+                  key={currentRole}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className="gradient-text font-semibold"
+                >
+                  {roles[currentRole]}
+                </motion.span>
+              </p>
+
+              <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+                Pheng Bunath
+              </h1>
+
+              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+                I build reliable cloud infrastructure, automate delivery pipelines, and ship
+                production-grade applications. From Kubernetes clusters to polished React interfaces
+                — I help teams move faster with confidence.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col gap-3 xs:flex-row xs:flex-wrap sm:flex-row"
+            >
+              <MagneticButton onClick={handleDownloadCV} variant="primary" className="!w-full sm:!w-auto">
+                <Download className="h-4 w-4" />
                 Download CV
-              </span>
-            </Button>
-          </motion.div>
-        </div>
-
-        <motion.div variants={itemVariants} className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-sm lg:max-w-none">
-            <motion.div
-              animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-0 bg-gradient-to-r from-[#22d3ee] via-[#3b82f6] to-[#7ce94f] rounded-full blur-3xl opacity-30"
-            />
+              </MagneticButton>
+              <MagneticButton as="a" href="#projects" variant="secondary" className="!w-full sm:!w-auto">
+                View Projects
+                <ArrowRight className="h-4 w-4" />
+              </MagneticButton>
+              <MagneticButton as="a" href="#contact" variant="ghost" className="!w-full sm:!w-auto">
+                Contact Me
+              </MagneticButton>
+            </motion.div>
 
             <motion.div
-              whileHover={{ scale: 1.05, rotate: 2 }}
-              className="relative glass rounded-3xl p-8 hover:border-[#22d3ee]/50 transition-all duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="flex items-center justify-center gap-3 pt-1 sm:justify-start sm:pt-2"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#22d3ee]/10 to-[#7ce94f]/10 rounded-3xl animate-pulse" />
-              <div className="relative w-full h-96 lg:h-[500px]">
-                {" "}
-                {/* Responsive height */}
-                <Image
-                  src={profile}
-                  alt="Pheng Bunath"
-                  fill
-                  className="rounded-2xl object-cover relative z-10"
-                  priority
-                />
-              </div>
-
-              {/* Floating badges */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                className="absolute -top-4 -right-4 bg-gradient-to-r from-[#22d3ee] to-[#7ce94f] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg glass"
-              >
-                Available for work
-              </motion.div>
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="glass-icon-btn h-10 w-10 text-muted-foreground"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </motion.div>
           </div>
-        </motion.div>
-      </motion.div>
+
+          <FadeIn delay={0.15} className="order-1 mx-auto w-full max-w-[280px] xs:max-w-xs sm:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md">
+            <div className="relative">
+              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-indigo-400/10 to-transparent blur-2xl sm:-inset-4" />
+              <div className="relative glass-frame">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={profile}
+                    alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
+                    fill
+                    className="profile-image"
+                    priority
+                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 384px, 400px"
+                  />
+                  <div className="profile-image-overlay" aria-hidden />
+                </div>
+                <div className="absolute bottom-3 left-3 right-3 glass-panel !rounded-xl px-3 py-2.5 sm:bottom-6 sm:left-6 sm:right-6 sm:px-4 sm:py-3">
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
+                      <Sparkles className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-medium text-muted-foreground sm:text-xs">Specializing in</p>
+                      <p className="truncate text-xs font-semibold text-foreground sm:text-sm">
+                        CI/CD · Kubernetes · Next.js
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
     </section>
   )
 }
