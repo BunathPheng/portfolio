@@ -1,28 +1,12 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { Mail, MapPin, Send, Github, Linkedin } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import MagneticButton from "@/components/magnetic-button"
-
-const TURNSTILE_SITE_KEY = "0x4AAAAAACZIH5_69MTJqFPN"
-
-type TurnstileApi = {
-  render: (
-    el: HTMLElement,
-    opts: {
-      sitekey: string
-      callback: (token: string) => void
-      "expired-callback": () => void
-      "error-callback": () => void
-    }
-  ) => string
-  reset: (widgetId: string) => void
-  remove?: (widgetId: string) => void
-}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,69 +17,6 @@ export default function Contact() {
   })
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [error, setError] = useState<string | null>(null)
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-  const [turnstileReady, setTurnstileReady] = useState<boolean | "failed">(false)
-  const turnstileRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string | null>(null)
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-
-    const win = window as { turnstile?: TurnstileApi }
-    if (win.turnstile) {
-      setTurnstileReady(true)
-      return
-    }
-
-    const existing = document.querySelector<HTMLScriptElement>(
-      'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]'
-    )
-    if (existing) {
-      existing.addEventListener("load", () => setTurnstileReady(true), { once: true })
-      existing.addEventListener("error", () => setTurnstileReady("failed"), { once: true })
-      return
-    }
-
-    const script = document.createElement("script")
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-    script.async = true
-    script.defer = true
-    script.onload = () => setTurnstileReady(true)
-    script.onerror = () => setTurnstileReady("failed")
-    document.body.appendChild(script)
-  }, [])
-
-  useEffect(() => {
-    if (turnstileReady !== true || !turnstileRef.current || widgetIdRef.current != null) return
-
-    const win = window as { turnstile?: TurnstileApi }
-    if (!win.turnstile) {
-      setTurnstileReady("failed")
-      return
-    }
-
-    try {
-      widgetIdRef.current = win.turnstile.render(turnstileRef.current, {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: (token: string) => {
-          setTurnstileToken(token)
-          setTurnstileReady(true)
-        },
-        "expired-callback": () => setTurnstileToken(null),
-        "error-callback": () => {
-          setTurnstileToken(null)
-          setTurnstileReady("failed")
-        },
-      })
-    } catch {
-      setTurnstileReady("failed")
-    }
-  }, [turnstileReady])
-
-  const canSubmitWithoutTurnstile = turnstileReady === "failed"
-  const canSubmit =
-    status !== "loading" &&
-    (canSubmitWithoutTurnstile || (turnstileReady === true && !!turnstileToken))
 
   const validate = () => {
     if (!formData.name.trim() || formData.name.trim().length < 2) return "Please enter your name."
@@ -105,8 +26,6 @@ export default function Contact() {
       return "Subject should be at least 3 characters."
     if (!formData.message.trim() || formData.message.trim().length < 10)
       return "Message should be at least 10 characters."
-    if (turnstileReady === true && !turnstileToken)
-      return "Please complete the verification check."
     return null
   }
 
@@ -125,24 +44,17 @@ export default function Contact() {
 
     try {
       const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrbnvzrz"
-      const payload: Record<string, string> = { ...formData }
-      if (turnstileToken) payload["cf-turnstile-response"] = turnstileToken
 
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       })
 
       if (!res.ok) throw new Error("Failed to send")
 
       setStatus("sent")
       setFormData({ name: "", email: "", subject: "", message: "" })
-      setTurnstileToken(null)
-      if (typeof window !== "undefined" && widgetIdRef.current != null) {
-        const w = window as { turnstile?: TurnstileApi }
-        w.turnstile?.reset(widgetIdRef.current)
-      }
     } catch {
       setStatus("error")
       setError("Unable to send message. Please try again or email bunath45@gmail.com.")
@@ -266,25 +178,10 @@ export default function Contact() {
                   required
                 />
 
-                {turnstileReady !== "failed" && (
-                  <div ref={turnstileRef} className="min-h-[65px] overflow-x-auto" />
-                )}
-
-                {turnstileReady === "failed" && (
-                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-700 dark:text-amber-300">
-                    Cloudflare verification couldn&apos;t load for this domain. You can still send the
-                    form, or email{" "}
-                    <a href="mailto:bunath45@gmail.com" className="underline underline-offset-2">
-                      bunath45@gmail.com
-                    </a>
-                    .
-                  </p>
-                )}
-
                 <MagneticButton
                   type="submit"
                   variant="primary"
-                  disabled={!canSubmit}
+                  disabled={status === "loading"}
                   className="w-full disabled:cursor-not-allowed disabled:opacity-50 sm:!w-full"
                 >
                   <Send className="h-4 w-4" />
