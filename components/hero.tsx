@@ -128,7 +128,7 @@ export default function Hero() {
 
           <FadeIn
             delay={0.15}
-            className="order-1 mx-auto w-full max-w-[220px] sm:max-w-[280px] md:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md"
+            className="order-1 mx-auto w-full max-w-[300px] xs:max-w-[320px] sm:max-w-[360px] md:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md"
           >
             <div className="relative">
               <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-indigo-400/10 to-transparent blur-2xl sm:-inset-4" />
@@ -140,18 +140,18 @@ export default function Hero() {
                     fill
                     className="profile-image"
                     priority
-                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 320px, 400px"
+                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
                   />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 glass-panel !rounded-xl px-2.5 py-2 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
-                      <Sparkles className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" />
+                <div className="absolute bottom-3 left-3 right-3 glass-panel !rounded-xl px-3 py-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
+                  <div className="flex items-center gap-2.5 sm:gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
+                      <Sparkles className="h-4 w-4 text-primary" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-medium text-muted-foreground sm:text-xs">Specializing in</p>
-                      <p className="truncate text-[11px] font-semibold text-foreground sm:text-sm">
+                      <p className="text-[11px] font-medium text-muted-foreground sm:text-xs">Specializing in</p>
+                      <p className="truncate text-xs font-semibold text-foreground sm:text-sm">
                         CI/CD · Kubernetes · Next.js
                       </p>
                     </div>
