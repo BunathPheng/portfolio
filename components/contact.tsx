@@ -31,6 +31,7 @@ export default function Contact() {
     email: "",
     subject: "",
     message: "",
+    website: "",
   })
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [error, setError] = useState<string | null>(null)
@@ -105,7 +106,7 @@ export default function Contact() {
     if (!formData.message.trim() || formData.message.trim().length < 10)
       return "Message should be at least 10 characters."
     if (turnstileState === "failed")
-      return "Cloudflare verification is not set up for this domain yet. Add bunath.me in Turnstile Hostname Management."
+      return "Cloudflare verification could not load. Add bunath.me in Turnstile Hostname Management, then refresh."
     if (turnstileState !== "ready" || !turnstileToken)
       return "Please complete the Cloudflare verification check."
     return null
@@ -125,29 +126,39 @@ export default function Contact() {
     setStatus("loading")
 
     try {
-      const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrbnvzrz"
-
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
-          "cf-turnstile-response": turnstileToken,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          website: formData.website,
+          turnstileToken,
         }),
       })
 
-      if (!res.ok) throw new Error("Failed to send")
+      const payload = (await res.json().catch(() => ({}))) as { error?: string }
+
+      if (!res.ok) {
+        throw new Error(payload.error || "Failed to send")
+      }
 
       setStatus("sent")
-      setFormData({ name: "", email: "", subject: "", message: "" })
+      setFormData({ name: "", email: "", subject: "", message: "", website: "" })
       setTurnstileToken(null)
       if (widgetIdRef.current != null) {
         const w = window as { turnstile?: TurnstileApi }
         w.turnstile?.reset(widgetIdRef.current)
       }
-    } catch {
+    } catch (err) {
       setStatus("error")
-      setError("Unable to send message. Please try again or email bunath45@gmail.com.")
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to send message. Please try again or email bunath45@gmail.com."
+      )
     }
   }
 
@@ -226,7 +237,7 @@ export default function Contact() {
 
           <FadeIn delay={0.1} className="lg:col-span-3">
             <div className="glass-panel-elevated !p-5 sm:!p-8">
-              <form noValidate onSubmit={handleSubmit} className="space-y-4">
+              <form noValidate onSubmit={handleSubmit} className="relative space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Input
                     type="text"
@@ -234,6 +245,7 @@ export default function Contact() {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="name"
                     className="glass-input text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
                     required
                   />
@@ -243,6 +255,7 @@ export default function Contact() {
                     placeholder="Your email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="email"
                     className="glass-input text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
                     required
                   />
@@ -268,14 +281,32 @@ export default function Contact() {
                   required
                 />
 
+                {/* Honeypot for bots — keep hidden from real users */}
+                <div className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={handleChange}
+                  />
+                </div>
+
                 <div ref={turnstileRef} className="min-h-[65px] overflow-x-auto" />
 
                 {turnstileState === "failed" && (
                   <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-3 text-sm text-amber-800 dark:text-amber-200">
-                    <p className="font-medium">Cloudflare Turnstile is blocked for this domain.</p>
-                    <p className="mt-1 text-amber-700/90 dark:text-amber-200/90">
-                      In Cloudflare Dashboard → Turnstile → your widget → Hostname Management, add{" "}
-                      <strong>bunath.me</strong> (and www.bunath.me if needed), then refresh this page.
+                    <p className="font-medium">Cloudflare Turnstile couldn&apos;t load.</p>
+                    <p className="mt-1 opacity-90">
+                      Add <strong>bunath.me</strong> in Cloudflare → Turnstile → Hostname Management,
+                      then refresh. Or email{" "}
+                      <a href="mailto:bunath45@gmail.com" className="underline underline-offset-2">
+                        bunath45@gmail.com
+                      </a>
+                      .
                     </p>
                   </div>
                 )}
