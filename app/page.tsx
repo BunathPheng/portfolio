@@ -9,10 +9,11 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ScrollToTop from "@/components/scroll-to-top"
 import AmbientBackground from "@/components/ambient-background"
+import CloudflareGate from "@/components/cloudflare-gate"
 
 export default function Home() {
   return (
-    <>
+    <CloudflareGate>
       <AmbientBackground />
       <Navbar />
       <main className="relative min-h-screen w-full overflow-x-clip">
@@ -26,6 +27,6 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
-    </>
+    </CloudflareGate>
   )
 }
