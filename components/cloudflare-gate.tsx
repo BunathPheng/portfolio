@@ -142,7 +142,7 @@ export default function CloudflareGate({ children }: CloudflareGateProps) {
             </p>
             <button
               type="button"
-              className="btn-secondary mt-3 !w-full"
+              className="btn-secondary btn-block mt-3"
               onClick={() => {
                 try {
                   sessionStorage.setItem(GATE_STORAGE_KEY, "1")

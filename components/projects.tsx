@@ -112,9 +112,9 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="flex flex-col gap-3 pt-1 xs:flex-row xs:flex-wrap sm:flex-row">
+                    <div className="flex flex-col items-stretch gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
                       {project.liveUrl !== "#" && (
-                        <MagneticButton as="a" href={project.liveUrl} variant="primary" className="!w-full sm:!w-auto">
+                        <MagneticButton as="a" href={project.liveUrl} variant="primary" block className="sm:!w-auto">
                           <ExternalLink className="h-4 w-4" />
                           Live Demo
                         </MagneticButton>
@@ -125,7 +125,8 @@ export default function Projects() {
                         variant="secondary"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="!w-full sm:!w-auto"
+                        block
+                        className="sm:!w-auto"
                       >
                         <Github className="h-4 w-4" />
                         View Code

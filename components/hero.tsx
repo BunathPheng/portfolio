@@ -90,17 +90,17 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start"
+              className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start"
             >
-              <MagneticButton onClick={handleDownloadCV} variant="primary" className="!w-full sm:!w-auto">
+              <MagneticButton onClick={handleDownloadCV} variant="primary" block className="sm:!w-auto">
                 <Download className="h-4 w-4" />
                 Download CV
               </MagneticButton>
-              <MagneticButton as="a" href="#projects" variant="secondary" className="!w-full sm:!w-auto">
+              <MagneticButton as="a" href="#projects" variant="secondary" block className="sm:!w-auto">
                 View Projects
                 <ArrowRight className="h-4 w-4" />
               </MagneticButton>
-              <MagneticButton as="a" href="#contact" variant="ghost" className="!w-full sm:!w-auto">
+              <MagneticButton as="a" href="#contact" variant="ghost" block className="sm:!w-auto">
                 Contact Me
               </MagneticButton>
             </motion.div>

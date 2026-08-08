@@ -283,8 +283,8 @@ export default function Contact() {
                 <MagneticButton
                   type="submit"
                   variant="primary"
+                  block
                   disabled={status === "loading" || turnstileState !== "ready" || !turnstileToken}
-                  className="w-full disabled:cursor-not-allowed disabled:opacity-50 sm:!w-full"
                 >
                   <Send className="h-4 w-4" />
                   {status === "loading" ? "Sending..." : "Send Message"}

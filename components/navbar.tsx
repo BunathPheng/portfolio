@@ -132,7 +132,7 @@ export default function Navbar() {
 
           <div className="flex shrink-0 items-center gap-2">
             <ThemeToggle />
-            <a href="#contact" className="btn-primary !w-auto !px-4 !py-2 text-xs lg:text-sm">
+            <a href="#contact" className="btn-primary btn-sm">
               Contact
             </a>
           </div>

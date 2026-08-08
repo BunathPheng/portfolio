@@ -8,6 +8,8 @@ type MagneticButtonProps = {
   children: React.ReactNode
   className?: string
   variant?: "primary" | "secondary" | "ghost"
+  size?: "default" | "sm"
+  block?: boolean
   as?: "button" | "a"
   href?: string
   target?: string
@@ -21,6 +23,8 @@ export default function MagneticButton({
   children,
   className,
   variant = "primary",
+  size = "default",
+  block = false,
   as = "button",
   href,
   target,
@@ -40,15 +44,22 @@ export default function MagneticButton({
 
   const handleMouse = (e: React.MouseEvent) => {
     if (!ref.current || disabled) return
+    // Keep magnetic effect subtle and desktop-only so buttons stay visually consistent
+    if (window.matchMedia("(hover: none)").matches) return
     const rect = ref.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left - rect.width / 2) * 0.15
-    const y = (e.clientY - rect.top - rect.height / 2) * 0.15
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.12
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.12
     setPosition({ x, y })
   }
 
   const handleLeave = () => setPosition({ x: 0, y: 0 })
 
-  const sharedClass = cn(variantClass, className)
+  const sharedClass = cn(
+    variantClass,
+    size === "sm" && "btn-sm",
+    block && "btn-block",
+    className
+  )
 
   if (as === "a" && href) {
     return (
@@ -60,7 +71,7 @@ export default function MagneticButton({
         onMouseMove={handleMouse}
         onMouseLeave={handleLeave}
         animate={{ x: position.x, y: position.y }}
-        transition={{ type: "spring", stiffness: 350, damping: 20, mass: 0.5 }}
+        transition={{ type: "spring", stiffness: 350, damping: 22, mass: 0.45 }}
         className={sharedClass}
       >
         {children}
@@ -77,7 +88,7 @@ export default function MagneticButton({
       onMouseMove={handleMouse}
       onMouseLeave={handleLeave}
       animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 350, damping: 20, mass: 0.5 }}
+      transition={{ type: "spring", stiffness: 350, damping: 22, mass: 0.45 }}
       className={sharedClass}
     >
       {children}
