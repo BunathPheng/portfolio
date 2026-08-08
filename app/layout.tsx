@@ -10,7 +10,8 @@ const poppins = Poppins({
   display: "swap",
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bunath.me"
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://bunath.me"
 
 export const viewport = {
   width: "device-width",
