@@ -1,12 +1,29 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Mail, MapPin, Send, Github, Linkedin } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import MagneticButton from "@/components/magnetic-button"
+
+const TURNSTILE_SITE_KEY =
+  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || "0x4AAAAAACZIH5_69MTJqFPN"
+
+type TurnstileApi = {
+  render: (
+    el: HTMLElement,
+    opts: {
+      sitekey: string
+      theme?: "light" | "dark" | "auto"
+      callback: (token: string) => void
+      "expired-callback": () => void
+      "error-callback": () => void
+    }
+  ) => string
+  reset: (widgetId: string) => void
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -17,6 +34,67 @@ export default function Contact() {
   })
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [error, setError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileState, setTurnstileState] = useState<"loading" | "ready" | "failed">("loading")
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const win = window as { turnstile?: TurnstileApi }
+    const markReady = () => setTurnstileState((prev) => (prev === "failed" ? prev : "ready"))
+
+    if (win.turnstile) {
+      markReady()
+      return
+    }
+
+    const src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`)
+
+    if (existing) {
+      existing.addEventListener("load", markReady, { once: true })
+      existing.addEventListener("error", () => setTurnstileState("failed"), { once: true })
+      return
+    }
+
+    const script = document.createElement("script")
+    script.src = src
+    script.async = true
+    script.defer = true
+    script.onload = markReady
+    script.onerror = () => setTurnstileState("failed")
+    document.body.appendChild(script)
+  }, [])
+
+  useEffect(() => {
+    if (turnstileState !== "ready" || !turnstileRef.current || widgetIdRef.current != null) return
+
+    const win = window as { turnstile?: TurnstileApi }
+    if (!win.turnstile) {
+      setTurnstileState("failed")
+      return
+    }
+
+    try {
+      widgetIdRef.current = win.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "auto",
+        callback: (token: string) => {
+          setTurnstileToken(token)
+          setTurnstileState("ready")
+        },
+        "expired-callback": () => setTurnstileToken(null),
+        "error-callback": () => {
+          setTurnstileToken(null)
+          setTurnstileState("failed")
+        },
+      })
+    } catch {
+      setTurnstileState("failed")
+    }
+  }, [turnstileState])
 
   const validate = () => {
     if (!formData.name.trim() || formData.name.trim().length < 2) return "Please enter your name."
@@ -26,6 +104,10 @@ export default function Contact() {
       return "Subject should be at least 3 characters."
     if (!formData.message.trim() || formData.message.trim().length < 10)
       return "Message should be at least 10 characters."
+    if (turnstileState === "failed")
+      return "Cloudflare verification is not set up for this domain yet. Add bunath.me in Turnstile Hostname Management."
+    if (turnstileState !== "ready" || !turnstileToken)
+      return "Please complete the Cloudflare verification check."
     return null
   }
 
@@ -48,13 +130,21 @@ export default function Contact() {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          "cf-turnstile-response": turnstileToken,
+        }),
       })
 
       if (!res.ok) throw new Error("Failed to send")
 
       setStatus("sent")
       setFormData({ name: "", email: "", subject: "", message: "" })
+      setTurnstileToken(null)
+      if (widgetIdRef.current != null) {
+        const w = window as { turnstile?: TurnstileApi }
+        w.turnstile?.reset(widgetIdRef.current)
+      }
     } catch {
       setStatus("error")
       setError("Unable to send message. Please try again or email bunath45@gmail.com.")
@@ -178,10 +268,22 @@ export default function Contact() {
                   required
                 />
 
+                <div ref={turnstileRef} className="min-h-[65px] overflow-x-auto" />
+
+                {turnstileState === "failed" && (
+                  <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-3 text-sm text-amber-800 dark:text-amber-200">
+                    <p className="font-medium">Cloudflare Turnstile is blocked for this domain.</p>
+                    <p className="mt-1 text-amber-700/90 dark:text-amber-200/90">
+                      In Cloudflare Dashboard → Turnstile → your widget → Hostname Management, add{" "}
+                      <strong>bunath.me</strong> (and www.bunath.me if needed), then refresh this page.
+                    </p>
+                  </div>
+                )}
+
                 <MagneticButton
                   type="submit"
                   variant="primary"
-                  disabled={status === "loading"}
+                  disabled={status === "loading" || turnstileState !== "ready" || !turnstileToken}
                   className="w-full disabled:cursor-not-allowed disabled:opacity-50 sm:!w-full"
                 >
                   <Send className="h-4 w-4" />
