@@ -37,10 +37,13 @@ export default function Hero() {
   }
 
   return (
-    <section id="hero" className="relative flex min-h-[100dvh] items-center pt-24 pb-12 sm:pt-28 sm:pb-16">
-      <div className="section-container">
-        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          <div className="order-2 space-y-6 sm:space-y-8 lg:order-1">
+    <section
+      id="hero"
+      className="relative flex min-h-[100svh] items-center pt-8 pb-[7.5rem] sm:pt-12 sm:pb-32 lg:min-h-[100dvh]"
+    >
+      <div className="section-container w-full">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <div className="order-2 space-y-5 text-center sm:space-y-7 lg:order-1 lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,26 +61,25 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-4 sm:space-y-5"
+              className="space-y-3 sm:space-y-5"
             >
-              <p className="text-base font-medium text-muted-foreground sm:text-lg md:text-xl">
+              <p className="text-sm font-medium text-muted-foreground sm:text-lg md:text-xl">
                 Hi, I&apos;m{" "}
                 <motion.span
                   key={currentRole}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
                   className="gradient-text font-semibold"
                 >
                   {roles[currentRole]}
                 </motion.span>
               </p>
 
-              <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+              <h1 className="text-[2.35rem] font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
                 Pheng Bunath
               </h1>
 
-              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+              <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg lg:mx-0">
                 I build reliable cloud infrastructure, automate delivery pipelines, and ship
                 production-grade applications. From Kubernetes clusters to polished React interfaces
                 — I help teams move faster with confidence.
@@ -88,7 +90,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col gap-3 xs:flex-row xs:flex-wrap sm:flex-row"
+              className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start"
             >
               <MagneticButton onClick={handleDownloadCV} variant="primary" className="!w-full sm:!w-auto">
                 <Download className="h-4 w-4" />
@@ -107,7 +109,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="flex items-center justify-center gap-3 pt-1 sm:justify-start sm:pt-2"
+              className="flex items-center justify-center gap-2.5 pt-1 sm:gap-3 lg:justify-start"
             >
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
@@ -124,7 +126,10 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          <FadeIn delay={0.15} className="order-1 mx-auto w-full max-w-[280px] xs:max-w-xs sm:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md">
+          <FadeIn
+            delay={0.15}
+            className="order-1 mx-auto w-full max-w-[220px] sm:max-w-[280px] md:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md"
+          >
             <div className="relative">
               <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-indigo-400/10 to-transparent blur-2xl sm:-inset-4" />
               <div className="relative glass-frame">
@@ -135,18 +140,18 @@ export default function Hero() {
                     fill
                     className="profile-image"
                     priority
-                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 384px, 400px"
+                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 320px, 400px"
                   />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
-                <div className="absolute bottom-3 left-3 right-3 glass-panel !rounded-xl px-3 py-2.5 sm:bottom-6 sm:left-6 sm:right-6 sm:px-4 sm:py-3">
-                  <div className="flex items-center gap-2.5 sm:gap-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 glass-panel !rounded-xl px-2.5 py-2 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
                       <Sparkles className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" />
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] font-medium text-muted-foreground sm:text-xs">Specializing in</p>
-                      <p className="truncate text-xs font-semibold text-foreground sm:text-sm">
+                      <p className="truncate text-[11px] font-semibold text-foreground sm:text-sm">
                         CI/CD · Kubernetes · Next.js
                       </p>
                     </div>

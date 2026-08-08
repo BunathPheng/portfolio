@@ -32,14 +32,14 @@ export default function Skills() {
             const Icon = iconMap[group.icon]
             return (
               <FadeIn key={group.category} delay={index * 0.08}>
-                <div className="group surface-card h-full !p-6">
-                  <div className="mb-4 flex items-center gap-3">
+                <div className="group surface-card h-full !p-4 sm:!p-6">
+                  <div className="mb-3 flex items-center gap-3 sm:mb-4">
                     <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                       <Icon className="h-4 w-4" />
                     </div>
                     <h3 className="text-sm font-semibold text-foreground">{group.category}</h3>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {group.skills.map((skill) => (
                       <span key={skill} className="tag">
                         {skill}

@@ -1,30 +1,47 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { navItems } from "@/lib/content"
-import MagneticButton from "@/components/magnetic-button"
+import { useEffect, useState } from "react"
+import {
+  Briefcase,
+  FolderKanban,
+  GraduationCap,
+  Home,
+  Layers,
+  Mail,
+  User,
+} from "lucide-react"
+import { motion } from "framer-motion"
 import ThemeToggle from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
+const mobileTabs = [
+  { href: "#hero", id: "hero", label: "Home", icon: Home },
+  { href: "#about", id: "about", label: "About", icon: User },
+  { href: "#skills", id: "skills", label: "Skills", icon: Layers },
+  { href: "#projects", id: "projects", label: "Work", icon: FolderKanban },
+  { href: "#contact", id: "contact", label: "Contact", icon: Mail },
+] as const
+
+const desktopItems = [
+  { href: "#about", id: "about", label: "About", icon: User },
+  { href: "#skills", id: "skills", label: "Skills", icon: Layers },
+  { href: "#projects", id: "projects", label: "Projects", icon: FolderKanban },
+  { href: "#experience", id: "experience", label: "Experience", icon: Briefcase },
+  { href: "#education", id: "education", label: "Education", icon: GraduationCap },
+  { href: "#contact", id: "contact", label: "Contact", icon: Mail },
+] as const
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 24)
-
       const sections = ["hero", "about", "skills", "projects", "experience", "education", "contact"]
       const current = sections.find((section) => {
         const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 140 && rect.bottom >= 140
-        }
-        return false
+        if (!element) return false
+        const rect = element.getBoundingClientRect()
+        return rect.top <= window.innerHeight * 0.42 && rect.bottom >= window.innerHeight * 0.28
       })
       if (current) setActiveSection(current)
     }
@@ -34,117 +51,92 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : ""
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
+  const mobileActive =
+    activeSection === "experience" || activeSection === "education"
+      ? "projects"
+      : activeSection
 
   return (
-    <header className="fixed top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-4 lg:px-6">
-      <div
-        className={cn(
-          "section-container !px-0 transition-all duration-500",
-          scrolled ? "max-w-4xl" : "max-w-6xl"
-        )}
-      >
+    <header className="pointer-events-none fixed inset-x-0 bottom-0 z-50 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-4">
+      <div className="mx-auto w-full max-w-lg pointer-events-auto md:max-w-3xl lg:max-w-4xl">
+        {/* Mobile / tablet icon dock */}
         <nav
-          className={cn(
-            "flex h-12 items-center justify-between rounded-2xl px-3 transition-all duration-500 sm:h-14 sm:px-4 lg:px-6",
-            scrolled ? "glass-panel-elevated shadow-glass" : "border border-transparent bg-transparent"
-          )}
+          className="glass-panel-elevated flex h-[4.25rem] items-stretch justify-between rounded-2xl px-1 shadow-glass sm:h-[4.5rem] sm:px-2 md:hidden"
+          aria-label="Mobile navigation"
+        >
+          {mobileTabs.map(({ href, id, label, icon: Icon }) => {
+            const isActive = mobileActive === id
+            return (
+              <a
+                key={id}
+                href={href}
+                className={cn(
+                  "relative flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 text-[10px] font-medium transition-colors",
+                  isActive ? "text-primary" : "text-muted-foreground"
+                )}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="mobile-nav-pill"
+                    className="absolute inset-1 rounded-xl bg-primary/10"
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                  />
+                )}
+                <Icon className="relative h-[18px] w-[18px] sm:h-5 sm:w-5" />
+                <span className="relative truncate">{label}</span>
+              </a>
+            )
+          })}
+          <div className="flex items-center px-1">
+            <ThemeToggle className="!h-9 !w-9" />
+          </div>
+        </nav>
+
+        {/* Desktop dock */}
+        <nav
+          className="glass-panel-elevated hidden h-16 items-center justify-between gap-2 rounded-2xl px-3 shadow-glass md:flex"
           aria-label="Main navigation"
         >
           <a
             href="#hero"
-            className="truncate text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary sm:text-base"
+            className="shrink-0 rounded-xl px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
           >
-            <span className="sm:hidden">PB</span>
-            <span className="hidden sm:inline">Pheng Bunath</span>
+            Pheng Bunath
           </a>
 
-          <div className="hidden items-center gap-0.5 lg:flex xl:gap-1">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "relative rounded-full px-2.5 py-1.5 text-sm font-medium transition-colors xl:px-3.5",
-                  activeSection === item.href.slice(1)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {activeSection === item.href.slice(1) && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-primary/10"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative">{item.label}</span>
-              </a>
-            ))}
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-0.5 lg:gap-1">
+            {desktopItems.map(({ href, id, label, icon: Icon }) => {
+              const isActive = activeSection === id
+              return (
+                <a
+                  key={id}
+                  href={href}
+                  className={cn(
+                    "relative flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-medium transition-colors lg:px-3 lg:text-sm",
+                    isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="desktop-nav-pill"
+                      className="absolute inset-0 rounded-xl bg-primary/10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <Icon className="relative h-4 w-4 shrink-0" />
+                  <span className="relative hidden lg:inline">{label}</span>
+                </a>
+              )
+            })}
           </div>
 
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="flex shrink-0 items-center gap-2">
             <ThemeToggle />
-            <MagneticButton as="a" href="#contact" variant="primary" className="!w-auto !px-4 !py-2 text-xs xl:!px-5 xl:text-sm">
-              Contact Me
-            </MagneticButton>
-          </div>
-
-          <div className="flex items-center gap-1.5 lg:hidden">
-            <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            <a href="#contact" className="btn-primary !w-auto !px-4 !py-2 text-xs lg:text-sm">
+              Contact
+            </a>
           </div>
         </nav>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="mt-2 max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-2xl glass-panel-elevated lg:hidden"
-            >
-              <div className="flex flex-col gap-1 p-3">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                      activeSection === item.href.slice(1)
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-                <div className="mt-2 flex items-center justify-between rounded-xl px-4 py-3">
-                  <span className="text-sm font-medium text-muted-foreground">Appearance</span>
-                  <ThemeToggle />
-                </div>
-                <a href="#contact" onClick={() => setIsOpen(false)} className="btn-primary mt-2 !w-full text-center">
-                  Contact Me
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </header>
   )

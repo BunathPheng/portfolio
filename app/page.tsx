@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <AmbientBackground />
       <Navbar />
-      <main className="relative min-h-screen overflow-x-hidden">
+      <main className="relative min-h-screen w-full overflow-x-clip">
         <Hero />
         <About />
         <Skills />

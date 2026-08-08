@@ -70,7 +70,12 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
           </AnimatePresence>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="glass-panel-elevated min-w-[140px] border-border/60 p-1">
+      <DropdownMenuContent
+        align="end"
+        side="top"
+        sideOffset={8}
+        className="glass-panel-elevated z-[60] min-w-[140px] border-border/60 p-1"
+      >
         {themes.map(({ value, label, icon: Icon }) => (
           <DropdownMenuItem
             key={value}

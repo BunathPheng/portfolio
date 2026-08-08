@@ -10,12 +10,13 @@ const poppins = Poppins({
   display: "swap",
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://buanth.site"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bunath.me"
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover" as const,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fafafc" },
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },

@@ -48,7 +48,7 @@ export default function About() {
 
         <div className="grid items-start gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
           <FadeIn className="space-y-8">
-            <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
+            <div className="space-y-4 text-sm leading-relaxed text-muted-foreground sm:space-y-5 sm:text-base">
               <p>
                 I&apos;m Pheng Bunath — a DevOps Engineer and Full-Stack Developer who bridges
                 infrastructure and application development. I design CI/CD pipelines, deploy
@@ -63,7 +63,7 @@ export default function About() {
 
             <ul className="space-y-3">
               {highlights.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-foreground">
+                <li key={item} className="flex items-start gap-2.5 text-xs text-foreground sm:gap-3 sm:text-sm">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                   {item}
                 </li>
@@ -76,7 +76,7 @@ export default function About() {
                   <div className="text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-3xl">
                     {stat.number}
                   </div>
-                  <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="mt-1 text-[11px] leading-snug text-muted-foreground sm:text-sm">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -85,13 +85,13 @@ export default function About() {
           <FadeIn delay={0.1} className="space-y-4">
             {credentials.map((item) => (
               <div key={item.title} className="group surface-card flex gap-3 !p-4 sm:gap-4 sm:!p-6">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-11 sm:w-11">
                   <item.icon className="h-5 w-5" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{item.title}</h3>
-                  <p className="text-sm font-medium text-primary">{item.subtitle}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-semibold text-foreground sm:text-base">{item.title}</h3>
+                  <p className="text-xs font-medium text-primary sm:text-sm">{item.subtitle}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground sm:text-sm">{item.detail}</p>
                 </div>
               </div>
             ))}

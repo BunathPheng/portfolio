@@ -116,7 +116,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section-spacing">
+    <section id="contact" className="section-spacing !pb-8 sm:!pb-12">
       <div className="section-container">
         <SectionHeader
           label="Contact"
