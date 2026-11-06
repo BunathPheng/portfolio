@@ -3,11 +3,21 @@
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import { SectionHeader, FadeIn } from "@/components/section-header"
-import { projects } from "@/lib/content"
+import { usePortfolioData } from "@/components/portfolio-data-provider"
+import englishImage from "@/portfolio/src/image/English.jpg"
+import selamontyImage from "@/portfolio/src/image/selamonty.png"
+import smartopsImage from "@/portfolio/src/image/Final.png"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
 
 export default function Projects() {
+  const { projects } = usePortfolioData()
+  const imageMap = {
+    "English.jpg": englishImage,
+    "selamonty.png": selamontyImage,
+    "Final.png": smartopsImage,
+  }
+
   return (
     <section id="projects" className="section-spacing">
       <div className="section-container">
@@ -29,7 +39,7 @@ export default function Projects() {
                   <div className="relative glass-frame">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                       <Image
-                        src={project.image}
+                        src={imageMap[project.image as keyof typeof imageMap] || project.image}
                         alt={project.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"

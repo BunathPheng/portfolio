@@ -1,8 +1,11 @@
+"use client"
+
 import { Calendar, MapPin } from "lucide-react"
 import { SectionHeader, FadeIn } from "@/components/section-header"
-import { experiences } from "@/lib/content"
+import { usePortfolioData } from "@/components/portfolio-data-provider"
 
 export default function Experience() {
+  const { experiences } = usePortfolioData()
   return (
     <section id="experience" className="section-spacing">
       <div className="section-container">

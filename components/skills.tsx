@@ -3,7 +3,7 @@
 import { Cloud, Database, Layout, Wrench } from "lucide-react"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import TechMarquee from "@/components/tech-marquee"
-import { skillGroups } from "@/lib/content"
+import { usePortfolioData } from "@/components/portfolio-data-provider"
 import { techStackRow1, techStackRow2 } from "@/lib/tech-stack"
 
 const iconMap = {
@@ -14,6 +14,7 @@ const iconMap = {
 }
 
 export default function Skills() {
+  const { skillGroups } = usePortfolioData()
   return (
     <section id="skills" className="section-spacing">
       <div className="section-container">

@@ -1,8 +1,11 @@
+"use client"
+
 import { GraduationCap, Calendar } from "lucide-react"
 import { SectionHeader, FadeIn } from "@/components/section-header"
-import { education } from "@/lib/content"
+import { usePortfolioData } from "@/components/portfolio-data-provider"
 
 export default function Education() {
+  const { education } = usePortfolioData()
   return (
     <section id="education" className="section-spacing">
       <div className="section-container">
