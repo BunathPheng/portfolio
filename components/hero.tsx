@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-center pt-8 pb-[7.5rem] sm:pt-12 sm:pb-32 lg:min-h-[100dvh]"
+      className="hero-section relative flex min-h-[100svh] items-center pt-8 pb-28 sm:pt-12 sm:pb-32 lg:min-h-[100dvh]"
     >
       <div className="section-container w-full">
         <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
@@ -48,7 +48,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary backdrop-blur-sm sm:px-4 sm:text-sm"
+              className="hero-status inline-flex max-w-full items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium sm:px-4 sm:text-sm"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60 opacity-75" />
@@ -63,8 +63,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-3 sm:space-y-5"
             >
-              <p className="text-sm font-medium text-muted-foreground sm:text-lg md:text-xl">
-                Hi, I&apos;m{" "}
+              <p className="hero-kicker text-sm font-medium sm:text-lg md:text-xl">
+                I am a{" "}
                 <motion.span
                   key={currentRole}
                   initial={{ opacity: 0, y: 8 }}
@@ -76,13 +76,13 @@ export default function Hero() {
               </p>
 
               <h1 className="text-[2.35rem] font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-                Pheng Bunath
+                Reliable systems.
+                <span className="block nature-text">Beautiful products.</span>
               </h1>
 
               <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:text-lg lg:mx-0">
-                I build reliable cloud infrastructure, automate delivery pipelines, and ship
-                production-grade applications. From Kubernetes clusters to polished React interfaces
-                — I help teams move faster with confidence.
+                I&apos;m Pheng Bunath, a DevOps engineer and full-stack developer focused on
+                cloud infrastructure, delivery automation, and production-ready web experiences.
               </p>
             </motion.div>
 
@@ -140,7 +140,7 @@ export default function Hero() {
                 initial={{ opacity: 0, scale: 0.92, rotate: 2 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="relative glass-frame"
+                className="hero-photo-frame relative glass-frame"
               >
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
                   <Image
@@ -153,15 +153,15 @@ export default function Hero() {
                   />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
-                <div className="absolute bottom-3 left-3 right-3 glass-panel !rounded-xl px-3 py-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
+                <div className="hero-photo-caption absolute bottom-3 left-3 right-3 !rounded-xl px-3 py-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
                       <Sparkles className="h-4 w-4 text-primary" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[11px] font-medium text-muted-foreground sm:text-xs">Specializing in</p>
+                      <p className="text-[11px] font-medium text-muted-foreground sm:text-xs">Currently building with</p>
                       <p className="truncate text-xs font-semibold text-foreground sm:text-sm">
-                        CI/CD · Kubernetes · Next.js
+                        Docker · Kubernetes · Next.js
                       </p>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ export default function Hero() {
         aria-label="Scroll to about section"
         animate={{ y: [0, 7, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-28 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/70 sm:flex"
+        className="hero-scroll absolute bottom-10 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/70 sm:flex"
       >
         <span>Scroll to explore</span>
         <span className="h-8 w-px bg-gradient-to-b from-primary/70 to-transparent" />

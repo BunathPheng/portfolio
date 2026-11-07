@@ -285,6 +285,32 @@
       linear-gradient(135deg, hsl(var(--background)), hsl(var(--background)));
   }
 
+  .hero-section {
+    isolation: isolate;
+  }
+
+  .hero-section::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-0 top-1/2 -z-10 mx-auto h-[32rem] max-w-5xl -translate-y-1/2 rounded-[50%] opacity-70 blur-3xl;
+    background: radial-gradient(ellipse, hsl(160 70% 45% / 0.08), transparent 68%);
+  }
+
+  .hero-status {
+    @apply border border-emerald-400/25 bg-emerald-400/10 text-emerald-500 shadow-[0_0_24px_hsl(160_70%_45%/0.1)] backdrop-blur-sm;
+  }
+
+  .hero-kicker {
+    @apply text-muted-foreground;
+  }
+
+  .hero-photo-frame {
+    @apply border-emerald-400/20 shadow-[0_24px_80px_hsl(160_70%_35%/0.14)];
+  }
+
+  .hero-photo-caption {
+    @apply border border-white/30 bg-background/80 shadow-lg backdrop-blur-xl;
+  }
+
   .devops-grid {
     background-image:
       linear-gradient(hsl(var(--primary) / 0.055) 1px, transparent 1px),
