@@ -142,18 +142,18 @@ export default function Hero() {
                 transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="hero-photo-frame relative glass-frame"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                <div className="hero-photo-inner relative aspect-[4/5] w-full overflow-hidden rounded-[1.35rem]">
                   <Image
                     src={profile}
                     alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
                     fill
-                    className="profile-image"
+                    className="hero-profile-image"
                     priority
                     sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
                   />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
-                <div className="hero-photo-caption absolute bottom-3 left-3 right-3 !rounded-xl px-3 py-2.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-4 sm:py-3">
+                <div className="hero-photo-caption absolute -bottom-5 left-5 right-5 !rounded-2xl px-3 py-2.5 sm:left-8 sm:right-8 sm:px-4 sm:py-3">
                   <div className="flex items-center gap-2.5 sm:gap-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 sm:h-9 sm:w-9">
                       <Sparkles className="h-4 w-4 text-primary" />
@@ -165,6 +165,10 @@ export default function Hero() {
                       </p>
                     </div>
                   </div>
+                </div>
+                <div className="hero-photo-badge absolute -right-3 top-8 hidden rounded-xl border border-emerald-400/20 bg-background/85 px-3 py-2 font-mono text-[10px] text-emerald-400 shadow-lg backdrop-blur-xl sm:block">
+                  <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_currentColor]" />
+                  systems.online
                 </div>
               </motion.div>
             </div>

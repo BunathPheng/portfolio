@@ -304,11 +304,36 @@
   }
 
   .hero-photo-frame {
-    @apply border-emerald-400/20 shadow-[0_24px_80px_hsl(160_70%_35%/0.14)];
+    @apply border-emerald-400/25 shadow-[0_24px_80px_hsl(160_70%_35%/0.14)];
+    transform: rotate(-1.5deg);
+  }
+
+  .hero-photo-frame::before {
+    content: "";
+    @apply pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] border border-emerald-400/20;
+    transform: rotate(4deg);
+  }
+
+  .hero-photo-inner {
+    @apply bg-secondary;
+  }
+
+  .hero-profile-image {
+    @apply object-cover transition-transform duration-700;
+    object-position: center 16%;
+    transform: scale(1.04);
+  }
+
+  .hero-photo-frame:hover .hero-profile-image {
+    transform: scale(1.09);
   }
 
   .hero-photo-caption {
-    @apply border border-white/30 bg-background/80 shadow-lg backdrop-blur-xl;
+    @apply border border-emerald-400/20 bg-background/90 shadow-xl backdrop-blur-xl;
+  }
+
+  .hero-photo-badge {
+    transform: rotate(3deg);
   }
 
   .devops-grid {
