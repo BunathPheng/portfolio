@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-07",
+  "r2_buckets": [
+    {
+      "binding": "PORTFOLIO",
+      "bucket_name": "portfolio"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-db",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+  "vars": {
+    "R2_PUBLIC_BASE_URL": "https://assets.bunath.me",
+    "CORS_ORIGIN": "https://bunath.me"
+  }
+}
