@@ -25,11 +25,20 @@ export type ApiEducation = {
   description: string
 }
 
+export type ApiDevOpsStage = {
+  step: string
+  title: string
+  description: string
+  image: string
+  color: string
+}
+
 export type PortfolioData = {
   projects: ApiProject[]
   skillGroups: ApiSkillGroup[]
   experiences: ApiExperience[]
   education: ApiEducation[]
+  devopsLifecycle: ApiDevOpsStage[]
 }
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || ""

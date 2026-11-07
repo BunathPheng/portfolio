@@ -9,6 +9,7 @@ const fallbackData: PortfolioData = {
   skillGroups,
   experiences,
   education,
+  devopsLifecycle: [],
 }
 
 const PortfolioDataContext = createContext<PortfolioData>(fallbackData)
