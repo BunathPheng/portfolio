@@ -235,6 +235,20 @@
     @apply pointer-events-none absolute rounded-full blur-3xl;
   }
 
+  .devops-background {
+    background:
+      radial-gradient(circle at 50% 35%, hsl(var(--primary) / 0.06), transparent 34%),
+      linear-gradient(135deg, hsl(var(--background)), hsl(var(--background)));
+  }
+
+  .devops-grid {
+    background-image:
+      linear-gradient(hsl(var(--primary) / 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.055) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 78%);
+  }
+
   @keyframes shimmer {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
