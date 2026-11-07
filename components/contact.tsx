@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import MagneticButton from "@/components/magnetic-button"
-import { apiErrorMessage, apiUrl } from "@/lib/api"
+import { apiErrorMessage, backendApiUrl } from "@/lib/api"
 
 const TURNSTILE_SITE_KEY =
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || "0x4AAAAAACZIH5_69MTJqFPN"
@@ -127,7 +127,7 @@ export default function Contact() {
     setStatus("loading")
 
     try {
-      const res = await fetch(apiUrl("/api/contact"), {
+      const res = await fetch(backendApiUrl("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

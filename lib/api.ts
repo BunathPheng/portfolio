@@ -47,6 +47,13 @@ export function apiUrl(path: string) {
   return `${apiBaseUrl}${path}`
 }
 
+export function backendApiUrl(path: string) {
+  if (!apiBaseUrl) {
+    throw new Error("NEXT_PUBLIC_API_URL must point to the FastAPI backend")
+  }
+  return `${apiBaseUrl}${path}`
+}
+
 export async function apiErrorMessage(response: Response, fallback: string) {
   const payload = (await response.json().catch(() => null)) as
     | { error?: string; detail?: string | { msg?: string }[] }
@@ -66,7 +73,7 @@ export async function apiErrorMessage(response: Response, fallback: string) {
 }
 
 export async function fetchPortfolio(): Promise<PortfolioData> {
-  const response = await fetch(apiUrl("/api/portfolio"), { cache: "no-store" })
+  const response = await fetch(backendApiUrl("/api/portfolio"), { cache: "no-store" })
   if (!response.ok) throw new Error(`Portfolio API returned ${response.status}`)
   return response.json() as Promise<PortfolioData>
 }
