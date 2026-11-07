@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import MagneticButton from "@/components/magnetic-button"
-import { apiUrl } from "@/lib/api"
+import { apiErrorMessage, apiUrl } from "@/lib/api"
 
 const TURNSTILE_SITE_KEY =
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || "0x4AAAAAACZIH5_69MTJqFPN"
@@ -140,10 +140,8 @@ export default function Contact() {
         }),
       })
 
-      const payload = (await res.json().catch(() => ({}))) as { error?: string }
-
       if (!res.ok) {
-        throw new Error(payload.error || "Failed to send")
+        throw new Error(await apiErrorMessage(res, "Failed to send"))
       }
 
       setStatus("sent")

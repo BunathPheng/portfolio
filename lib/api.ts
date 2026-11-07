@@ -47,6 +47,24 @@ export function apiUrl(path: string) {
   return `${apiBaseUrl}${path}`
 }
 
+export async function apiErrorMessage(response: Response, fallback: string) {
+  const payload = (await response.json().catch(() => null)) as
+    | { error?: string; detail?: string | { msg?: string }[] }
+    | null
+
+  if (typeof payload?.error === "string" && payload.error.trim()) return payload.error
+  if (typeof payload?.detail === "string" && payload.detail.trim()) return payload.detail
+  if (Array.isArray(payload?.detail)) {
+    const message = payload.detail
+      .map((item) => item.msg)
+      .filter((item): item is string => Boolean(item))
+      .join(", ")
+    if (message) return message
+  }
+
+  return fallback
+}
+
 export async function fetchPortfolio(): Promise<PortfolioData> {
   const response = await fetch(apiUrl("/api/portfolio"), { cache: "no-store" })
   if (!response.ok) throw new Error(`Portfolio API returned ${response.status}`)

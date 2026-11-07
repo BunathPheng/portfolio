@@ -2,14 +2,14 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import { fetchPortfolio, type PortfolioData } from "@/lib/api"
-import { education, experiences, projects, skillGroups } from "@/lib/content"
+import { devopsLifecycle, education, experiences, projects, skillGroups } from "@/lib/content"
 
 const fallbackData: PortfolioData = {
   projects,
   skillGroups,
   experiences,
   education,
-  devopsLifecycle: [],
+  devopsLifecycle,
 }
 
 const PortfolioDataContext = createContext<PortfolioData>(fallbackData)

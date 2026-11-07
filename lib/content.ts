@@ -1,6 +1,11 @@
 import englishImage from "../portfolio/src/image/English.jpg"
 import selamontyImage from "../portfolio/src/image/selamonty.png"
 import smartopsImage from "../portfolio/src/image/Final.png"
+import gitImage from "../portfolio/src/image/Git.png"
+import jenkinsImage from "../portfolio/src/image/jenkins.svg"
+import dockerImage from "../portfolio/src/image/Docker.png"
+import kubernetesImage from "../portfolio/src/image/Kubernetes.png"
+import argoImage from "../portfolio/src/image/ArgoCD.png"
 import type { StaticImageData } from "next/image"
 
 export type Project = {
@@ -182,6 +187,44 @@ export const education = [
     school: "ISTAD",
     period: "Jan 2025 – Present",
     description: "Core software engineering foundations and collaborative projects.",
+  },
+]
+
+export const devopsLifecycle = [
+  {
+    step: "01",
+    title: "Plan",
+    description: "Define the change, acceptance criteria, and delivery plan before implementation.",
+    image: gitImage.src,
+    color: "from-slate-500/30 to-slate-700/40",
+  },
+  {
+    step: "02",
+    title: "Build",
+    description: "Develop and package changes with repeatable tooling and version-controlled workflows.",
+    image: jenkinsImage.src,
+    color: "from-red-500/30 to-orange-500/30",
+  },
+  {
+    step: "03",
+    title: "Containerize",
+    description: "Create consistent, portable application images for predictable runtime environments.",
+    image: dockerImage.src,
+    color: "from-sky-500/30 to-blue-600/30",
+  },
+  {
+    step: "04",
+    title: "Deploy",
+    description: "Release through Kubernetes with declarative configuration and controlled rollouts.",
+    image: kubernetesImage.src,
+    color: "from-blue-500/30 to-indigo-500/30",
+  },
+  {
+    step: "05",
+    title: "Observe",
+    description: "Measure health and performance so every release can be improved with evidence.",
+    image: argoImage.src,
+    color: "from-orange-500/30 to-amber-500/30",
   },
 ]
 
