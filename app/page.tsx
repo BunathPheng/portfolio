@@ -11,6 +11,7 @@ import ScrollToTop from "@/components/scroll-to-top"
 import AmbientBackground from "@/components/ambient-background"
 import { PortfolioDataProvider } from "@/components/portfolio-data-provider"
 import DevOpsLifecycle from "@/components/devops-lifecycle"
+import PagePipeline from "@/components/page-pipeline"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <AmbientBackground />
       <Navbar />
       <main className="relative min-h-screen w-full overflow-x-clip">
+        <PagePipeline />
         <Hero />
         <About />
         <DevOpsLifecycle />
