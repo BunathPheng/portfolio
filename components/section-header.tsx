@@ -40,7 +40,11 @@ export function SectionHeader({ label, title, description, align = "left" }: Sec
   return (
     <FadeIn className={`section-header-spacing space-y-3 sm:space-y-4 ${align === "center" ? "text-center" : ""}`}>
       <p className="section-label">
-        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+        <motion.span
+          animate={{ scale: [1, 1.35, 1], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="h-1.5 w-1.5 rounded-full bg-primary"
+        />
         {label}
       </p>
       <h2 className="section-title">{title}</h2>

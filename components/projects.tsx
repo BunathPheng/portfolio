@@ -30,7 +30,7 @@ export default function Projects() {
         <div className="space-y-14 sm:space-y-20 md:space-y-28">
           {projects.map((project, index) => (
             <FadeIn key={project.id} delay={index * 0.05}>
-              <article className="group">
+              <article className="project-card group">
                 <div
                   className={`grid items-start gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14 ${
                     index % 2 === 1 ? "lg:[direction:rtl] lg:*:[direction:ltr]" : ""

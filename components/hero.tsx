@@ -131,8 +131,17 @@ export default function Hero() {
             className="order-1 mx-auto w-full max-w-[300px] xs:max-w-[320px] sm:max-w-[360px] md:max-w-sm lg:order-2 lg:mx-0 lg:max-w-md"
           >
             <div className="relative">
-              <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-indigo-400/10 to-transparent blur-2xl sm:-inset-4" />
-              <div className="relative glass-frame">
+              <motion.div
+                animate={{ rotate: [0, 4, 0, -4, 0], scale: [1, 1.03, 1] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/20 via-indigo-400/10 to-transparent blur-2xl sm:-inset-4"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, rotate: 2 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="relative glass-frame"
+              >
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
                   <Image
                     src={profile}
@@ -157,11 +166,21 @@ export default function Hero() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </FadeIn>
         </div>
       </div>
+      <motion.a
+        href="#about"
+        aria-label="Scroll to about section"
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-28 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/70 sm:flex"
+      >
+        <span>Scroll to explore</span>
+        <span className="h-8 w-px bg-gradient-to-b from-primary/70 to-transparent" />
+      </motion.a>
     </section>
   )
 }
