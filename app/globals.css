@@ -109,6 +109,26 @@
   }
 }
 
+@media (max-width: 767px) {
+  .devops-background,
+  .page-pipeline {
+    display: none !important;
+  }
+
+  .glass-panel,
+  .glass-panel-elevated,
+  .glass-frame,
+  .lifecycle-map-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .group\/marquee > div {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 @layer components {
   .section-container {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
