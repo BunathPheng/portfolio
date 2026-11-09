@@ -5,6 +5,7 @@ import { useState, type DragEvent } from "react"
 import { cn } from "@/lib/utils"
 import type { TechItem } from "@/lib/tech-stack"
 import { localImageFallback, r2ImageFallback } from "@/lib/assets"
+import { cycleImageFallback } from "@/lib/image-fallback"
 
 type TechMarqueeProps = {
   items: TechItem[]
@@ -75,13 +76,9 @@ function MarqueeRow({
                   alt={item.name}
                   width={32}
                   height={32}
-                  onError={(event) => {
-                    if (event.currentTarget.src === r2ImageFallback) {
-                      event.currentTarget.src = localImageFallback
-                    } else {
-                      event.currentTarget.src = r2ImageFallback
-                    }
-                  }}
+                  onError={(event) =>
+                    cycleImageFallback(event, [r2ImageFallback, localImageFallback])
+                  }
                   className="h-5 w-5 object-contain opacity-70 grayscale transition-all duration-300 group-hover/item:opacity-100 group-hover/item:grayscale-0 group-hover/item:scale-110 sm:h-7 sm:w-7"
                 />
               </div>

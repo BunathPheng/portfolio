@@ -7,6 +7,7 @@ import type { ApiProject } from "@/lib/api"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
 import { localImageFallback, r2Asset, r2DevelopmentAsset, r2ImageFallback } from "@/lib/assets"
+import { cycleImageFallback } from "@/lib/image-fallback"
 
 export default function Projects() {
   const { projects } = usePortfolioData()
@@ -45,16 +46,13 @@ export default function Projects() {
                         src={r2Asset(projectFilename(project))}
                         alt={project.title}
                         loading="lazy"
-                        onError={(event) => {
-                          const fallback = r2DevelopmentAsset(projectFilename(project))
-                          if (event.currentTarget.src === r2ImageFallback) {
-                            event.currentTarget.src = localImageFallback
-                          } else if (event.currentTarget.src === fallback) {
-                            event.currentTarget.src = r2ImageFallback
-                          } else {
-                            event.currentTarget.src = fallback
-                          }
-                        }}
+                        onError={(event) =>
+                          cycleImageFallback(event, [
+                            r2DevelopmentAsset(projectFilename(project)),
+                            r2ImageFallback,
+                            localImageFallback,
+                          ])
+                        }
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

@@ -4,6 +4,7 @@ import { Github, Hexagon, CodeXml, Terminal, Database, Type, Triangle } from "lu
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { localImageFallback, r2ImageFallback } from "@/lib/assets"
+import { cycleImageFallback } from "@/lib/image-fallback"
 import { useEffect, useState } from "react"
 
 // Import existing images
@@ -253,13 +254,9 @@ export default function TechStackCluster() {
                                                     src={tech.image}
                                                     alt={tech.name}
                                                     fill
-                                                    onError={(event) => {
-                                                        if (event.currentTarget.src === r2ImageFallback) {
-                                                            event.currentTarget.src = localImageFallback
-                                                        } else {
-                                                            event.currentTarget.src = r2ImageFallback
-                                                        }
-                                                    }}
+                                                    onError={(event) =>
+                                                        cycleImageFallback(event, [r2ImageFallback, localImageFallback])
+                                                    }
                                                     className="object-contain filter grayscale brightness-[0.7] group-hover:grayscale-0 group-hover:brightness-110 transition-all duration-700"
                                                 />
                                             ) : tech.Icon ? (

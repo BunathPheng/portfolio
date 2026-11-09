@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { ArrowDown, CheckCircle2 } from "lucide-react"
 import { usePortfolioData } from "@/components/portfolio-data-provider"
 import { localImageFallback, r2ImageFallback } from "@/lib/assets"
+import { cycleImageFallback } from "@/lib/image-fallback"
 
 export default function DevOpsLifecycle() {
   const { devopsLifecycle } = usePortfolioData()
@@ -60,13 +61,9 @@ export default function DevOpsLifecycle() {
                         src={stage.image}
                         alt={`${stage.title} technology`}
                         loading="lazy"
-                        onError={(event) => {
-                          if (event.currentTarget.src === r2ImageFallback) {
-                            event.currentTarget.src = localImageFallback
-                          } else {
-                            event.currentTarget.src = r2ImageFallback
-                          }
-                        }}
+                        onError={(event) =>
+                          cycleImageFallback(event, [r2ImageFallback, localImageFallback])
+                        }
                       />
                     </div>
                     <div className="min-w-0">
