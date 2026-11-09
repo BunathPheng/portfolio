@@ -6,7 +6,7 @@ import { usePortfolioData } from "@/components/portfolio-data-provider"
 import type { ApiProject } from "@/lib/api"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
-import { localImageFallback, r2Asset, r2DevelopmentAsset } from "@/lib/assets"
+import { localImageFallback, r2Asset, r2DevelopmentAsset, r2ImageFallback } from "@/lib/assets"
 
 export default function Projects() {
   const { projects } = usePortfolioData()
@@ -47,10 +47,12 @@ export default function Projects() {
                         loading="lazy"
                         onError={(event) => {
                           const fallback = r2DevelopmentAsset(projectFilename(project))
-                          if (event.currentTarget.src !== fallback) {
-                            event.currentTarget.src = fallback
-                          } else if (event.currentTarget.src !== localImageFallback) {
+                          if (event.currentTarget.src === r2ImageFallback) {
                             event.currentTarget.src = localImageFallback
+                          } else if (event.currentTarget.src === fallback) {
+                            event.currentTarget.src = r2ImageFallback
+                          } else {
+                            event.currentTarget.src = fallback
                           }
                         }}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"

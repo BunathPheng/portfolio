@@ -3,6 +3,7 @@ const r2BaseUrl = (
 ).replace(/\/$/, "")
 const r2DevelopmentBaseUrl = "https://pub-f771ba68d32040c5a83d95618b951922.r2.dev"
 export const localImageFallback = "/placeholder.svg"
+export const r2ImageFallback = r2Asset("images.jpg")
 
 export function r2Asset(filename: string) {
   return `${r2BaseUrl}/portfolio/image/${encodeURIComponent(filename)}`
