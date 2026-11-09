@@ -137,7 +137,7 @@
   }
 
   .devops-roadmap {
-    @apply rounded-3xl px-4 py-8;
+    @apply rounded-3xl px-4 py-8 opacity-[0.15];
   }
 
   .devops-roadmap-path {
@@ -324,15 +324,19 @@
   }
 
   .devops-roadmap {
-    @apply relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-5 py-10 text-slate-900 shadow-[0_20px_70px_rgba(15,23,42,0.12)] sm:px-10 sm:py-14;
+    @apply relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-slate-200/20 bg-white/10 px-5 py-10 text-slate-900 opacity-25 sm:px-10 sm:py-14;
   }
 
   .dark .devops-roadmap {
-    @apply border-slate-700 bg-slate-50 text-slate-900;
+    @apply border-slate-700/30 bg-slate-50/10 text-slate-900;
+  }
+
+  .devops-roadmap-background {
+    @apply pointer-events-none absolute inset-0 z-0 overflow-hidden;
   }
 
   .devops-roadmap-heading {
-    @apply relative z-10 text-center text-2xl font-black tracking-tight sm:text-4xl;
+    display: none;
   }
 
   .devops-roadmap-path {
@@ -369,7 +373,7 @@
   }
 
   .devops-roadmap-label {
-    @apply mt-3 max-w-[10rem] text-sm font-medium leading-tight sm:text-base;
+    display: none;
   }
 
   .devops-roadmap-label small {
@@ -377,7 +381,7 @@
   }
 
   .devops-roadmap-footer {
-    @apply relative z-10 mt-12 text-center text-xs font-bold tracking-[0.28em] text-slate-500 sm:mt-16 sm:text-sm;
+    display: none;
   }
 
   .lifecycle-image {

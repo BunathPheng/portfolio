@@ -10,23 +10,8 @@ export default function DevOpsLifecycle() {
   if (!devopsLifecycle.length) return null
 
   return (
-    <section id="devops-lifecycle" className="section-spacing relative overflow-hidden">
-      <div className="section-container">
-        <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
-          <p className="section-label justify-center">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            Delivery map
-          </p>
-          <h2 className="section-title mt-3">
-            From idea to <span className="nature-text">reliable production</span>
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            A connected DevOps roadmap for turning changes into safe, observable releases.
-          </p>
-        </div>
-
-        <div className="devops-roadmap">
-          <div className="devops-roadmap-heading">DEVOPS ROADMAP</div>
+    <section aria-hidden id="devops-lifecycle" className="devops-roadmap-background">
+      <div className="devops-roadmap">
           <svg className="devops-roadmap-path" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden>
             <path d="M75 112 H925 C965 112 965 250 925 250 H75 C35 250 35 388 75 388 H925" />
           </svg>
@@ -44,16 +29,9 @@ export default function DevOpsLifecycle() {
                     }
                   />
                 </div>
-                <div className="devops-roadmap-label">
-                  <span>{stage.title}</span>
-                  <small>{stage.description}</small>
-                </div>
               </article>
             ))}
           </div>
-
-          <div className="devops-roadmap-footer">BUILD · SHIP · OBSERVE · IMPROVE</div>
-        </div>
       </div>
     </section>
   )
