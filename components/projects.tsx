@@ -7,7 +7,7 @@ import { usePortfolioData } from "@/components/portfolio-data-provider"
 import type { ApiProject } from "@/lib/api"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
-import { r2Asset } from "@/lib/assets"
+import { r2Asset, r2DevelopmentAsset } from "@/lib/assets"
 
 export default function Projects() {
   const { projects } = usePortfolioData()
@@ -18,6 +18,9 @@ export default function Projects() {
 
     return r2Asset(filename)
   }
+
+  const projectFilename = (image: ApiProject["image"]) =>
+    typeof image === "string" ? image.split("/").pop() || image : image.src.split("/").pop() || ""
 
   return (
     <section id="projects" className="section-spacing">
@@ -43,6 +46,10 @@ export default function Projects() {
                         src={projectImage(project.image)}
                         alt={project.title}
                         fill
+                        onError={(event) => {
+                          const fallback = r2DevelopmentAsset(projectFilename(project.image))
+                          if (event.currentTarget.src !== fallback) event.currentTarget.src = fallback
+                        }}
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
