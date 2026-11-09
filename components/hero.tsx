@@ -144,16 +144,14 @@ export default function Hero() {
                 className="hero-photo-frame relative glass-frame"
               >
                 <div className="hero-photo-inner relative aspect-[4/5] w-full overflow-hidden rounded-[1.35rem]">
-                  {profileImage && (
-                    <Image
-                      src={profileImage}
-                      alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
-                      fill
-                      className="hero-profile-image"
-                      priority
-                      sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
-                    />
-                  )}
+                  <Image
+                    src={profileImage}
+                    alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
+                    fill
+                    className="hero-profile-image"
+                    priority
+                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
+                  />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
                 <div className="hero-photo-caption absolute -bottom-5 left-5 right-5 !rounded-2xl px-3 py-2.5 sm:left-8 sm:right-8 sm:px-4 sm:py-3">
