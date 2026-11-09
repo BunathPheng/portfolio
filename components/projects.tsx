@@ -21,11 +21,17 @@ export default function Projects() {
   }
 
   const projectImage = (image: ApiProject["image"]) => {
+    const filename =
+      typeof image === "string" ? image.split("/").pop() || image : image.src.split("/").pop() || ""
+
+    const r2Image = r2Asset(filename)
+    if (r2Image) return r2Image
+
     if (typeof image === "string") {
-      return r2Asset(image.split("/").pop() || image) || image
+      return image
     }
 
-    return r2Asset(image.src.split("/").pop() || "") || image
+    return imageMap[filename as keyof typeof imageMap] || image
   }
 
   return (
@@ -49,7 +55,7 @@ export default function Projects() {
                   <div className="relative glass-frame">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                       <Image
-                        src={projectImage(project.image) || imageMap[project.image as keyof typeof imageMap] || project.image}
+                        src={projectImage(project.image)}
                         alt={project.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
