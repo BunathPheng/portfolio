@@ -6,6 +6,9 @@ import jenkinsImage from "../portfolio/src/image/jenkins.svg"
 import dockerImage from "../portfolio/src/image/Docker.png"
 import kubernetesImage from "../portfolio/src/image/Kubernetes.png"
 import argoImage from "../portfolio/src/image/ArgoCD.png"
+import ansibleImage from "../portfolio/src/image/ansible.png"
+import javaImage from "../portfolio/src/image/Javaicon.png"
+import nginxImage from "../portfolio/src/image/Nginx.png"
 import type { StaticImageData } from "next/image"
 
 export type Project = {
@@ -193,36 +196,85 @@ export const education = [
 export const devopsLifecycle = [
   {
     step: "01",
-    title: "Plan",
-    description: "Define the change, acceptance criteria, and delivery plan before implementation.",
+    title: "Version control",
+    description: "Track source code and collaborate safely through Git-based workflows.",
     image: gitImage.src,
     color: "from-slate-500/30 to-slate-700/40",
   },
   {
     step: "02",
-    title: "Build",
-    description: "Develop and package changes with repeatable tooling and version-controlled workflows.",
-    image: jenkinsImage.src,
-    color: "from-red-500/30 to-orange-500/30",
+    title: "Programming",
+    description: "Build application services with reliable languages and tested code.",
+    image: javaImage.src,
+    color: "from-orange-500/30 to-red-500/30",
   },
   {
     step: "03",
-    title: "Containerize",
-    description: "Create consistent, portable application images for predictable runtime environments.",
+    title: "Linux & CLI",
+    description: "Operate systems through shell tools, automation, and repeatable commands.",
+    image: nginxImage.src,
+    color: "from-slate-500/30 to-cyan-500/30",
+  },
+  {
+    step: "04",
+    title: "Cloud",
+    description: "Provision scalable infrastructure and services for production workloads.",
     image: dockerImage.src,
     color: "from-sky-500/30 to-blue-600/30",
   },
   {
-    step: "04",
-    title: "Deploy",
-    description: "Release through Kubernetes with declarative configuration and controlled rollouts.",
+    step: "05",
+    title: "Containerization",
+    description: "Package applications into portable, reproducible runtime images.",
+    image: jenkinsImage.src,
+    color: "from-red-500/30 to-orange-500/30",
+  },
+  {
+    step: "06",
+    title: "CI/CD",
+    description: "Automate testing, packaging, security checks, and delivery.",
+    image: jenkinsImage.src,
+    color: "from-red-500/30 to-orange-500/30",
+  },
+  {
+    step: "07",
+    title: "Networking & security",
+    description: "Protect traffic, services, identities, and production boundaries.",
+    image: nginxImage.src,
+    color: "from-emerald-500/30 to-cyan-500/30",
+  },
+  {
+    step: "08",
+    title: "Orchestration",
+    description: "Run resilient workloads with Kubernetes and declarative operations.",
     image: kubernetesImage.src,
     color: "from-blue-500/30 to-indigo-500/30",
   },
   {
-    step: "05",
-    title: "Observe",
-    description: "Measure health and performance so every release can be improved with evidence.",
+    step: "09",
+    title: "Infrastructure as code",
+    description: "Create repeatable environments from version-controlled definitions.",
+    image: ansibleImage.src,
+    color: "from-violet-500/30 to-indigo-500/30",
+  },
+  {
+    step: "10",
+    title: "Configuration management",
+    description: "Keep servers and environments consistent through automation.",
+    image: ansibleImage.src,
+    color: "from-slate-500/30 to-purple-500/30",
+  },
+  {
+    step: "11",
+    title: "Serverless",
+    description: "Use managed execution for focused, event-driven workloads.",
+    image: argoImage.src,
+    color: "from-fuchsia-500/30 to-orange-500/30",
+  },
+  {
+    step: "12",
+    title: "Monitoring",
+    description: "Measure health, performance, and reliability after every release.",
     image: argoImage.src,
     color: "from-orange-500/30 to-amber-500/30",
   },

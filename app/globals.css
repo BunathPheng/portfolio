@@ -152,7 +152,14 @@
   .devops-roadmap-node-2,
   .devops-roadmap-node-3,
   .devops-roadmap-node-4,
-  .devops-roadmap-node-5 {
+  .devops-roadmap-node-5,
+  .devops-roadmap-node-6,
+  .devops-roadmap-node-7,
+  .devops-roadmap-node-8,
+  .devops-roadmap-node-9,
+  .devops-roadmap-node-10,
+  .devops-roadmap-node-11,
+  .devops-roadmap-node-12 {
     @apply col-auto row-auto;
   }
 
@@ -361,8 +368,15 @@
   .devops-roadmap-node-1 { @apply col-start-1 row-start-1; }
   .devops-roadmap-node-2 { @apply col-start-2 row-start-1; }
   .devops-roadmap-node-3 { @apply col-start-3 row-start-1; }
-  .devops-roadmap-node-4 { @apply col-start-1 row-start-2; }
+  .devops-roadmap-node-4 { @apply col-start-3 row-start-2; }
   .devops-roadmap-node-5 { @apply col-start-2 row-start-2; }
+  .devops-roadmap-node-6 { @apply col-start-1 row-start-2; }
+  .devops-roadmap-node-7 { @apply col-start-1 row-start-3; }
+  .devops-roadmap-node-8 { @apply col-start-2 row-start-3; }
+  .devops-roadmap-node-9 { @apply col-start-3 row-start-3; }
+  .devops-roadmap-node-10 { @apply col-start-3 row-start-4; }
+  .devops-roadmap-node-11 { @apply col-start-2 row-start-4; }
+  .devops-roadmap-node-12 { @apply col-start-1 row-start-4; }
 
   .devops-roadmap-icon {
     @apply flex h-16 w-16 items-center justify-center rounded-full border-2 border-slate-500/80 bg-white p-3 shadow-sm sm:h-20 sm:w-20;
