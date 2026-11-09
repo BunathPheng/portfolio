@@ -145,7 +145,7 @@ export default function Hero() {
               >
                 <div className="hero-photo-inner relative aspect-[4/5] w-full overflow-hidden rounded-[1.35rem]">
                   <Image
-                    src={r2Asset("Nath.jpg") || profile}
+                    src={r2Asset("photo_6192476314460163024_y.jpg") || profile}
                     alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
                     fill
                     className="hero-profile-image"

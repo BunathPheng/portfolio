@@ -40,7 +40,7 @@ export const techStackRow1: TechItem[] = [
 export const techStackRow2: TechItem[] = [
   { name: "Docker", image: r2Asset("Docker.png") || DockerImg },
   { name: "Kubernetes", image: r2Asset("Kubernetes.png") || K8sImg },
-  { name: "Jenkins", image: r2Asset("jenkins.svg") || JenkinsImg },
+  { name: "Jenkins", image: r2Asset("jenkins-logo.png") || JenkinsImg },
   { name: "Argo CD", image: r2Asset("ArgoCD.png") || ArgoImg },
   { name: "Ansible", image: r2Asset("ansible.png") || AnsibleImg },
   { name: "Helm", image: r2Asset("Helm.png") || HelmImg },
