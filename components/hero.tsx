@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Download, Github, Linkedin, Facebook, Send, ArrowRight, Sparkles } from "lucide-react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import profile from "../portfolio/src/image/Nath.jpg"
 import MagneticButton from "@/components/magnetic-button"
 import { FadeIn } from "@/components/section-header"
 import { r2Asset } from "@/lib/assets"
@@ -18,6 +17,7 @@ const socialLinks = [
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0)
+  const profileImage = r2Asset("photo_6192476314460163024_y.jpg")
   const roles = ["DevOps Engineer", "Full-Stack Developer", "Cloud Architect"]
 
   useEffect(() => {
@@ -144,14 +144,16 @@ export default function Hero() {
                 className="hero-photo-frame relative glass-frame"
               >
                 <div className="hero-photo-inner relative aspect-[4/5] w-full overflow-hidden rounded-[1.35rem]">
-                  <Image
-                    src={r2Asset("photo_6192476314460163024_y.jpg") || profile}
-                    alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
-                    fill
-                    className="hero-profile-image"
-                    priority
-                    sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
-                  />
+                  {profileImage && (
+                    <Image
+                      src={profileImage}
+                      alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
+                      fill
+                      className="hero-profile-image"
+                      priority
+                      sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
+                    />
+                  )}
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
                 <div className="hero-photo-caption absolute -bottom-5 left-5 right-5 !rounded-2xl px-3 py-2.5 sm:left-8 sm:right-8 sm:px-4 sm:py-3">
