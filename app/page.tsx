@@ -29,7 +29,7 @@ export default async function Home() {
     <PortfolioDataProvider initialData={portfolioData}>
       <AmbientBackground />
       <Navbar />
-      <main className="relative min-h-screen w-full overflow-x-clip">
+      <main className="relative z-0 min-h-screen w-full overflow-x-clip [isolation:isolate]">
         <PagePipeline />
         <Hero />
         <About />
