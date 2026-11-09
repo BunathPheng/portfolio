@@ -11,15 +11,15 @@ import { r2Asset, r2DevelopmentAsset } from "@/lib/assets"
 export default function Projects() {
   const { projects } = usePortfolioData()
 
-  const projectImage = (image: ApiProject["image"]) => {
+  const projectFilename = (project: ApiProject) => {
+    if (project.id === 1) return "English.jpg"
+    if (project.id === 3) return "selamonty.png"
+
+    const image = project.image
     const filename =
       typeof image === "string" ? image.split("/").pop() || image : image.src.split("/").pop() || ""
-
-    return r2Asset(filename)
+    return filename.replace(/\.[a-f0-9]{6,}(?=\.[^.]+$)/i, "")
   }
-
-  const projectFilename = (image: ApiProject["image"]) =>
-    typeof image === "string" ? image.split("/").pop() || image : image.src.split("/").pop() || ""
 
   return (
     <section id="projects" className="section-spacing">
@@ -42,11 +42,11 @@ export default function Projects() {
                   <div className="relative glass-frame">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                       <img
-                        src={projectImage(project.image)}
+                        src={r2Asset(projectFilename(project))}
                         alt={project.title}
                         loading="lazy"
                         onError={(event) => {
-                          const fallback = r2DevelopmentAsset(projectFilename(project.image))
+                          const fallback = r2DevelopmentAsset(projectFilename(project))
                           if (event.currentTarget.src !== fallback) event.currentTarget.src = fallback
                         }}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
