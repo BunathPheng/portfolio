@@ -14,6 +14,7 @@ import {
   Workflow,
 } from "lucide-react"
 import { motion, useReducedMotion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 const nodes = [
   { label: "Git", icon: GitBranch, x: "8%", y: "22%", tone: "text-orange-400" },
@@ -39,6 +40,19 @@ const links = [
 
 export default function AmbientBackground() {
   const reduceMotion = useReducedMotion()
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+  )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)")
+    const update = () => setIsMobile(mediaQuery.matches)
+    update()
+    mediaQuery.addEventListener("change", update)
+    return () => mediaQuery.removeEventListener("change", update)
+  }, [])
+
+  if (isMobile) return null
 
   return (
     <div aria-hidden className="devops-background pointer-events-none fixed inset-0 -z-10 overflow-hidden">

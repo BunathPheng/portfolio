@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { Activity, Code2, GitBranch, Rocket, Search, ShieldCheck, TestTube2 } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const stages = [
   { label: "Discover", icon: Search },
@@ -15,6 +16,19 @@ const stages = [
 
 export default function PagePipeline() {
   const reduceMotion = useReducedMotion()
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+  )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)")
+    const update = () => setIsMobile(mediaQuery.matches)
+    update()
+    mediaQuery.addEventListener("change", update)
+    return () => mediaQuery.removeEventListener("change", update)
+  }, [])
+
+  if (isMobile) return null
 
   return (
     <div aria-hidden className="page-pipeline pointer-events-none absolute inset-0 z-0 overflow-hidden">
