@@ -16,9 +16,7 @@ const stages = [
 
 export default function PagePipeline() {
   const reduceMotion = useReducedMotion()
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
-  )
+  const [isMobile, setIsMobile] = useState(true)
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)")
