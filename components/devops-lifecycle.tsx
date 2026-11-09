@@ -10,9 +10,9 @@ export default function DevOpsLifecycle() {
   if (!devopsLifecycle.length) return null
 
   return (
-    <section aria-hidden id="devops-lifecycle" className="devops-roadmap-background">
+    <div aria-hidden id="devops-lifecycle" className="devops-roadmap-background">
       <div className="devops-roadmap">
-          <svg className="devops-roadmap-path" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden>
+          <svg className="devops-roadmap-path" viewBox="0 0 1000 900" preserveAspectRatio="none" aria-hidden>
             <path d="M75 112 H925 C965 112 965 250 925 250 H75 C35 250 35 388 75 388 H925" />
           </svg>
 
@@ -33,6 +33,6 @@ export default function DevOpsLifecycle() {
             ))}
           </div>
       </div>
-    </section>
+    </div>
   )
 }
