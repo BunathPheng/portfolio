@@ -14,6 +14,8 @@ import DevOpsLifecycle from "@/components/devops-lifecycle"
 import PagePipeline from "@/components/page-pipeline"
 import { fetchPortfolio } from "@/lib/api"
 
+export const dynamic = "force-dynamic"
+
 export default async function Home() {
   let portfolioData = fallbackPortfolioData
 
