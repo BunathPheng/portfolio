@@ -12,8 +12,10 @@ export default function DevOpsLifecycle() {
   return (
     <div aria-hidden id="devops-lifecycle" className="devops-roadmap-background">
       <div className="devops-roadmap">
+          <div className="devops-roadmap-mountains" />
           <svg className="devops-roadmap-path" viewBox="0 0 1000 900" preserveAspectRatio="none" aria-hidden>
-            <path d="M75 112 H925 C965 112 965 250 925 250 H75 C35 250 35 388 75 388 H925" />
+            <path className="devops-roadmap-road" d="M90 790 C300 710 730 760 870 610 C980 490 720 445 470 510 C210 580 120 430 280 350 C440 270 760 330 860 190" />
+            <path className="devops-roadmap-road-line" d="M90 790 C300 710 730 760 870 610 C980 490 720 445 470 510 C210 580 120 430 280 350 C440 270 760 330 860 190" />
           </svg>
 
           <div className="devops-roadmap-grid">
@@ -28,6 +30,10 @@ export default function DevOpsLifecycle() {
                       cycleImageFallback(event, [r2ImageFallback, localImageFallback])
                     }
                   />
+                </div>
+                <div className="devops-roadmap-callout">
+                  <strong><b>{stage.step}</b>{stage.title}</strong>
+                  <span>{stage.description}</span>
                 </div>
               </article>
             ))}
