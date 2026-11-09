@@ -325,7 +325,7 @@
   }
 
   .devops-roadmap-background {
-    @apply pointer-events-none fixed inset-0 z-[-5] overflow-hidden;
+    @apply pointer-events-none fixed inset-0 z-0 overflow-hidden;
   }
 
   .devops-roadmap {
@@ -334,6 +334,10 @@
 
   .dark .devops-roadmap {
     @apply bg-transparent text-slate-900;
+  }
+
+  .dark .devops-roadmap-road {
+    stroke: #64748b;
   }
 
   .devops-roadmap-path {
@@ -370,7 +374,7 @@
   }
 
   .devops-roadmap-node {
-    @apply flex min-w-0 flex-col items-center text-center;
+    @apply relative flex min-w-0 flex-col items-center text-center;
   }
 
   .devops-roadmap-node-1 { @apply col-start-1 row-start-1; }
