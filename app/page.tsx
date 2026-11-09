@@ -9,13 +9,22 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ScrollToTop from "@/components/scroll-to-top"
 import AmbientBackground from "@/components/ambient-background"
-import { PortfolioDataProvider } from "@/components/portfolio-data-provider"
+import { fallbackPortfolioData, PortfolioDataProvider } from "@/components/portfolio-data-provider"
 import DevOpsLifecycle from "@/components/devops-lifecycle"
 import PagePipeline from "@/components/page-pipeline"
+import { fetchPortfolio } from "@/lib/api"
 
-export default function Home() {
+export default async function Home() {
+  let portfolioData = fallbackPortfolioData
+
+  try {
+    portfolioData = await fetchPortfolio()
+  } catch (error) {
+    console.error("Portfolio API unavailable; using bundled content.", error)
+  }
+
   return (
-    <PortfolioDataProvider>
+    <PortfolioDataProvider initialData={portfolioData}>
       <AmbientBackground />
       <Navbar />
       <main className="relative min-h-screen w-full overflow-x-clip">

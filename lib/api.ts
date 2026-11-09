@@ -73,7 +73,10 @@ export async function apiErrorMessage(response: Response, fallback: string) {
 }
 
 export async function fetchPortfolio(): Promise<PortfolioData> {
-  const response = await fetch(backendApiUrl("/api/portfolio"), { cache: "no-store" })
+  const response = await fetch(backendApiUrl("/api/portfolio"), {
+    cache: "no-store",
+    signal: AbortSignal.timeout(8_000),
+  })
   if (!response.ok) throw new Error(`Portfolio API returned ${response.status}`)
   return response.json() as Promise<PortfolioData>
 }
