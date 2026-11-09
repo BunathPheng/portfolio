@@ -136,48 +136,8 @@
     transform: none !important;
   }
 
-  .devops-roadmap {
-    @apply rounded-3xl px-4 py-8 opacity-[0.15];
-  }
-
-  .devops-roadmap-path {
-    @apply inset-[8%] h-[84%] w-[84%];
-  }
-
-  .devops-roadmap-grid {
-    @apply mt-8 grid-cols-1 gap-7;
-  }
-
-  .devops-roadmap-node-1,
-  .devops-roadmap-node-2,
-  .devops-roadmap-node-3,
-  .devops-roadmap-node-4,
-  .devops-roadmap-node-5,
-  .devops-roadmap-node-6,
-  .devops-roadmap-node-7,
-  .devops-roadmap-node-8,
-  .devops-roadmap-node-9,
-  .devops-roadmap-node-10,
-  .devops-roadmap-node-11,
-  .devops-roadmap-node-12 {
-    @apply col-auto row-auto;
-  }
-
-  .devops-roadmap-node {
-    @apply relative flex-row items-center gap-4 text-left;
-  }
-
-  .devops-roadmap-node:not(:last-child)::after {
-    content: "";
-    @apply absolute -bottom-5 left-8 h-5 w-px bg-slate-400;
-  }
-
-  .devops-roadmap-callout {
-    @apply static block w-auto flex-1 border border-slate-500/70 bg-white/80 p-2 shadow-none;
-  }
-
-  .devops-roadmap-footer {
-    @apply mt-9 text-[10px] tracking-[0.16em];
+  .devops-pipeline {
+    display: none;
   }
 }
 
@@ -330,104 +290,57 @@
     @apply scale-110;
   }
 
-  .devops-roadmap {
-    @apply relative h-full w-full overflow-hidden border-0 bg-transparent px-5 py-10 text-slate-900 opacity-25 sm:px-10 sm:py-14;
-  }
-
-  .dark .devops-roadmap {
-    @apply bg-transparent text-slate-900;
-  }
-
   .devops-roadmap-background {
     @apply pointer-events-none fixed inset-0 z-[-5] overflow-hidden;
   }
 
-  .devops-roadmap-heading {
-    display: none;
+  .devops-pipeline {
+    @apply relative mx-auto h-full max-w-6xl opacity-20;
   }
 
-  .devops-roadmap-path {
-    @apply pointer-events-none absolute inset-[8%] h-[84%] w-[92%];
+  .devops-pipeline-main {
+    @apply absolute left-1/2 top-[5vh] flex -translate-x-1/2 flex-col items-center;
   }
 
-  .devops-roadmap-road {
-    fill: none;
-    stroke: #1e293b;
-    stroke-width: 34;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
+  .devops-pipeline-step {
+    @apply relative flex flex-col items-center;
   }
 
-  .devops-roadmap-road-line {
-    fill: none;
-    stroke: #facc15;
-    stroke-width: 2;
-    stroke-dasharray: 14 12;
-    stroke-linecap: round;
-    vector-effect: non-scaling-stroke;
+  .devops-pipeline-step:not(:last-child)::after {
+    content: "";
+    @apply absolute left-1/2 top-14 h-12 w-px -translate-x-1/2 bg-slate-400;
   }
 
-  .devops-roadmap-mountains {
-    @apply pointer-events-none absolute inset-x-0 bottom-0 h-1/2 opacity-70;
-    background:
-      linear-gradient(145deg, transparent 38%, rgb(148 163 184 / 0.18) 38% 58%, transparent 58%) 0 100% / 65% 100% no-repeat,
-      linear-gradient(35deg, transparent 42%, rgb(96 165 250 / 0.14) 42% 65%, transparent 65%) 100% 100% / 72% 100% no-repeat;
+  .devops-pipeline-icon {
+    @apply relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-400/80 bg-white p-2 shadow-sm;
   }
 
-  .devops-roadmap-grid {
-    @apply relative z-10 mx-auto mt-10 grid max-w-5xl grid-cols-3 gap-x-5 gap-y-12 sm:mt-14 sm:gap-x-12 sm:gap-y-16;
-  }
-
-  .devops-roadmap-node {
-    @apply flex min-w-0 flex-col items-center text-center;
-  }
-
-  .devops-roadmap-node-1 { @apply col-start-1 row-start-1; }
-  .devops-roadmap-node-2 { @apply col-start-2 row-start-1; }
-  .devops-roadmap-node-3 { @apply col-start-3 row-start-1; }
-  .devops-roadmap-node-4 { @apply col-start-3 row-start-2; }
-  .devops-roadmap-node-5 { @apply col-start-2 row-start-2; }
-  .devops-roadmap-node-6 { @apply col-start-1 row-start-2; }
-  .devops-roadmap-node-7 { @apply col-start-1 row-start-3; }
-  .devops-roadmap-node-8 { @apply col-start-2 row-start-3; }
-  .devops-roadmap-node-9 { @apply col-start-3 row-start-3; }
-  .devops-roadmap-node-10 { @apply col-start-3 row-start-4; }
-  .devops-roadmap-node-11 { @apply col-start-2 row-start-4; }
-  .devops-roadmap-node-12 { @apply col-start-1 row-start-4; }
-
-  .devops-roadmap-icon {
-    @apply relative z-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-500/80 bg-white p-3 shadow-sm sm:h-16 sm:w-16;
-  }
-
-  .devops-roadmap-icon img {
+  .devops-pipeline-icon img {
     @apply h-full w-full object-contain;
   }
 
-  .devops-roadmap-callout {
-    @apply absolute z-20 hidden w-40 rounded-xl border-2 border-slate-500 bg-white/95 p-2 text-left shadow-lg sm:block;
-    left: calc(50% + 2.5rem);
-    top: 0;
+  .devops-pipeline-label {
+    @apply mt-1 whitespace-nowrap rounded bg-background/70 px-1.5 py-0.5 text-[9px] font-medium text-foreground;
   }
 
-  .devops-roadmap-callout strong {
-    @apply block text-xs font-bold text-slate-700;
+  .devops-pipeline-arrow {
+    @apply relative z-10 my-1 text-[13px] leading-none text-sky-500;
   }
 
-  .devops-roadmap-callout strong b {
-    @apply mr-1 rounded bg-slate-600 px-1 py-0.5 text-[9px] text-white;
+  .devops-pipeline-branch {
+    @apply absolute left-[calc(50%+3rem)] top-[15vh] flex flex-col gap-3 rounded-xl border border-sky-400/40 bg-background/70 px-3 py-2 text-[9px] font-medium text-foreground;
   }
 
-  .devops-roadmap-callout span {
-    @apply mt-1 block line-clamp-2 text-[10px] leading-tight text-slate-500;
+  .devops-pipeline-branch-line {
+    @apply absolute -left-8 top-1/2 h-px w-8 bg-sky-400;
   }
 
-  .devops-roadmap-label small {
-    @apply mt-1 block text-[10px] font-normal leading-snug text-slate-500 sm:text-xs;
+  .devops-pipeline-observability {
+    @apply absolute bottom-[8vh] left-1/2 flex -translate-x-1/2 items-end gap-8 rounded-2xl border border-emerald-400/40 bg-background/70 px-7 py-3;
   }
 
-  .devops-roadmap-footer {
-    display: none;
+  .devops-pipeline-observability-item {
+    @apply flex flex-col items-center gap-1 text-[9px] font-medium text-foreground;
   }
 
   .lifecycle-image {

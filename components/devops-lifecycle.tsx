@@ -1,43 +1,64 @@
 "use client"
 
 import { usePortfolioData } from "@/components/portfolio-data-provider"
-import { localImageFallback, r2ImageFallback } from "@/lib/assets"
-import { cycleImageFallback } from "@/lib/image-fallback"
+import { localImageFallback } from "@/lib/assets"
 
 export default function DevOpsLifecycle() {
   const { devopsLifecycle } = usePortfolioData()
+  const pipelineStages = devopsLifecycle.slice(0, 7)
+  const observabilityStages = devopsLifecycle.slice(7, 10)
 
-  if (!devopsLifecycle.length) return null
+  if (!pipelineStages.length) return null
 
   return (
     <div aria-hidden id="devops-lifecycle" className="devops-roadmap-background">
-      <div className="devops-roadmap">
-          <div className="devops-roadmap-mountains" />
-          <svg className="devops-roadmap-path" viewBox="0 0 1000 900" preserveAspectRatio="none" aria-hidden>
-            <path className="devops-roadmap-road" d="M90 790 C300 710 730 760 870 610 C980 490 720 445 470 510 C210 580 120 430 280 350 C440 270 760 330 860 190" />
-            <path className="devops-roadmap-road-line" d="M90 790 C300 710 730 760 870 610 C980 490 720 445 470 510 C210 580 120 430 280 350 C440 270 760 330 860 190" />
-          </svg>
-
-          <div className="devops-roadmap-grid">
-            {devopsLifecycle.map((stage, index) => (
-              <article key={stage.step} className={`devops-roadmap-node devops-roadmap-node-${index + 1}`}>
-                <div className={`devops-roadmap-icon bg-gradient-to-br ${stage.color}`}>
-                  <img
-                    src={stage.image}
-                    alt={`${stage.title} technology`}
-                    loading="lazy"
-                    onError={(event) =>
-                      cycleImageFallback(event, [r2ImageFallback, localImageFallback])
+      <div className="devops-pipeline">
+        <div className="devops-pipeline-main">
+          {pipelineStages.map((stage, index) => (
+            <div className="devops-pipeline-step" key={stage.step}>
+              <div className={`devops-pipeline-icon bg-gradient-to-br ${stage.color}`}>
+                <img
+                  src={stage.image}
+                  alt=""
+                  loading="lazy"
+                  onError={(event) => {
+                    if (event.currentTarget.src !== localImageFallback) {
+                      event.currentTarget.src = localImageFallback
                     }
-                  />
-                </div>
-                <div className="devops-roadmap-callout">
-                  <strong><b>{stage.step}</b>{stage.title}</strong>
-                  <span>{stage.description}</span>
-                </div>
-              </article>
-            ))}
-          </div>
+                  }}
+                />
+              </div>
+              <span className="devops-pipeline-label">{stage.title}</span>
+              {index < pipelineStages.length - 1 && <span className="devops-pipeline-arrow">↓</span>}
+            </div>
+          ))}
+        </div>
+
+        <div className="devops-pipeline-branch devops-pipeline-branch-security">
+          <span className="devops-pipeline-branch-line" />
+          <span>SonarQube</span>
+          <span>Trivy</span>
+        </div>
+
+        <div className="devops-pipeline-observability">
+          {observabilityStages.map((stage) => (
+            <div className="devops-pipeline-observability-item" key={stage.step}>
+              <div className={`devops-pipeline-icon bg-gradient-to-br ${stage.color}`}>
+                <img
+                  src={stage.image}
+                  alt=""
+                  loading="lazy"
+                  onError={(event) => {
+                    if (event.currentTarget.src !== localImageFallback) {
+                      event.currentTarget.src = localImageFallback
+                    }
+                  }}
+                />
+              </div>
+              <span>{stage.title}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
