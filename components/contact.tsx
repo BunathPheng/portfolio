@@ -9,8 +9,7 @@ import { SectionHeader, FadeIn } from "@/components/section-header"
 import MagneticButton from "@/components/magnetic-button"
 import { apiErrorMessage, backendApiUrl } from "@/lib/api"
 
-const TURNSTILE_SITE_KEY =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || "0x4AAAAAACZIH5_69MTJqFPN"
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || ""
 
 type TurnstileApi = {
   render: (
@@ -43,6 +42,10 @@ export default function Contact() {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    if (!TURNSTILE_SITE_KEY) {
+      setTurnstileState("failed")
+      return
+    }
 
     const win = window as { turnstile?: TurnstileApi }
     const markReady = () => setTurnstileState((prev) => (prev === "failed" ? prev : "ready"))
@@ -52,13 +55,14 @@ export default function Contact() {
       return
     }
 
-    const src = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+    const src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
     const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`)
+    const timeout = window.setTimeout(() => setTurnstileState("failed"), 10_000)
 
     if (existing) {
       existing.addEventListener("load", markReady, { once: true })
       existing.addEventListener("error", () => setTurnstileState("failed"), { once: true })
-      return
+      return () => window.clearTimeout(timeout)
     }
 
     const script = document.createElement("script")
@@ -68,6 +72,8 @@ export default function Contact() {
     script.onload = markReady
     script.onerror = () => setTurnstileState("failed")
     document.body.appendChild(script)
+
+    return () => window.clearTimeout(timeout)
   }, [])
 
   useEffect(() => {
@@ -106,8 +112,11 @@ export default function Contact() {
       return "Subject should be at least 3 characters."
     if (!formData.message.trim() || formData.message.trim().length < 10)
       return "Message should be at least 10 characters."
-    if (turnstileState === "failed")
-      return "Cloudflare verification could not load. Add bunath.me in Turnstile Hostname Management, then refresh."
+    if (turnstileState === "failed") {
+      return TURNSTILE_SITE_KEY
+        ? "Cloudflare verification could not load. Check Turnstile Hostname Management for bunath.me, then refresh."
+        : "Cloudflare verification is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY, then redeploy."
+    }
     if (turnstileState !== "ready" || !turnstileToken)
       return "Please complete the Cloudflare verification check."
     return null
@@ -127,9 +136,12 @@ export default function Contact() {
     setStatus("loading")
 
     try {
+      const controller = new AbortController()
+      const timeout = window.setTimeout(() => controller.abort(), 15_000)
       const res = await fetch(backendApiUrl("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -139,6 +151,7 @@ export default function Contact() {
           turnstileToken,
         }),
       })
+      window.clearTimeout(timeout)
 
       if (!res.ok) {
         throw new Error(await apiErrorMessage(res, "Failed to send"))
@@ -154,7 +167,9 @@ export default function Contact() {
     } catch (err) {
       setStatus("error")
       setError(
-        err instanceof Error
+        err instanceof DOMException && err.name === "AbortError"
+          ? "The backend took too long to respond. Please try again."
+          : err instanceof Error
           ? err.message
           : "Unable to send message. Please try again or email bunath45@gmail.com."
       )
