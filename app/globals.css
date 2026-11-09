@@ -124,7 +124,8 @@
   }
 
   .mobile-marquee {
-    animation-duration: 60s !important;
+    animation: none !important;
+    transform: none !important;
   }
 }
 

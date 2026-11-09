@@ -5,6 +5,14 @@ export function cycleImageFallback(
   sources: string[]
 ) {
   const image = event.currentTarget
+  const isSmallScreen = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+
+  if (isSmallScreen) {
+    image.onerror = null
+    image.src = "/placeholder.svg"
+    return
+  }
+
   const nextIndex = Number(image.dataset.fallbackIndex || 0)
 
   if (nextIndex >= sources.length) {
