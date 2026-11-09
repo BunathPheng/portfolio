@@ -123,9 +123,8 @@
     backdrop-filter: none !important;
   }
 
-  .group\/marquee > div {
-    animation: none !important;
-    transform: none !important;
+  .mobile-marquee {
+    animation-duration: 60s !important;
   }
 }
 

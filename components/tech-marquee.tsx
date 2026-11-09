@@ -45,6 +45,7 @@ function MarqueeRow({
           "flex w-max gap-2 py-1.5 sm:gap-3 sm:py-2",
           direction === "left" ? "animate-marquee-left" : "animate-marquee-right",
           speed === "slow" ? "![animation-duration:48s]" : "![animation-duration:34s]",
+          "mobile-marquee",
           "motion-reduce:![animation-play-state:paused]",
           "group-hover/marquee:[animation-play-state:paused]"
         )}
