@@ -20,12 +20,24 @@ export function PortfolioDataProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchPortfolio()
-      .then(setData)
-      .catch(() => {
-        // Keep bundled content available when the API is offline.
-      })
-      .finally(() => setLoading(false))
+    let active = true
+
+    async function loadPortfolio() {
+      try {
+        const portfolio = await fetchPortfolio()
+        if (active) setData(portfolio)
+      } catch {
+        // Keep bundled content available when the API is offline or unconfigured.
+      } finally {
+        if (active) setLoading(false)
+      }
+    }
+
+    void loadPortfolio()
+
+    return () => {
+      active = false
+    }
   }, [])
 
   if (loading) return <PortfolioLoadingSkeleton />
