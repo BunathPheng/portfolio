@@ -5,33 +5,18 @@ import Image from "next/image"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import { usePortfolioData } from "@/components/portfolio-data-provider"
 import type { ApiProject } from "@/lib/api"
-import englishImage from "@/portfolio/src/image/English.jpg"
-import selamontyImage from "@/portfolio/src/image/selamonty.png"
-import smartopsImage from "@/portfolio/src/image/Final.png"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
 import { r2Asset } from "@/lib/assets"
 
 export default function Projects() {
   const { projects } = usePortfolioData()
-  const imageMap = {
-    "English.jpg": englishImage,
-    "selamonty.png": selamontyImage,
-    "Final.png": smartopsImage,
-  }
 
   const projectImage = (image: ApiProject["image"]) => {
     const filename =
       typeof image === "string" ? image.split("/").pop() || image : image.src.split("/").pop() || ""
 
-    const r2Image = r2Asset(filename)
-    if (r2Image) return r2Image
-
-    if (typeof image === "string") {
-      return image
-    }
-
-    return imageMap[filename as keyof typeof imageMap] || image
+    return r2Asset(filename)
   }
 
   return (
