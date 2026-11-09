@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image"
+import { r2Asset } from "@/lib/assets"
 
 import ReactImg from "../portfolio/src/image/React.png"
 import NextjsImg from "../portfolio/src/image/nextjs.png"
@@ -26,28 +27,28 @@ export type TechItem = {
 }
 
 export const techStackRow1: TechItem[] = [
-  { name: "React", image: ReactImg },
-  { name: "Next.js", image: NextjsImg },
-  { name: "JavaScript", image: JsImg },
-  { name: "Tailwind CSS", image: TailwindImg },
-  { name: "HTML5", image: HtmlImg },
-  { name: "CSS3", image: CssImg },
-  { name: "Bootstrap", image: BootstrapImg },
-  { name: "Figma", image: FigmaImg },
+  { name: "React", image: r2Asset("React.png") || ReactImg },
+  { name: "Next.js", image: r2Asset("nextjs.png") || NextjsImg },
+  { name: "JavaScript", image: r2Asset("Js.png") || JsImg },
+  { name: "Tailwind CSS", image: r2Asset("Tailwind.png") || TailwindImg },
+  { name: "HTML5", image: r2Asset("Html.png") || HtmlImg },
+  { name: "CSS3", image: r2Asset("Css.png") || CssImg },
+  { name: "Bootstrap", image: r2Asset("Bootstrap.png") || BootstrapImg },
+  { name: "Figma", image: r2Asset("Figma.png") || FigmaImg },
 ]
 
 export const techStackRow2: TechItem[] = [
-  { name: "Docker", image: DockerImg },
-  { name: "Kubernetes", image: K8sImg },
-  { name: "Jenkins", image: JenkinsImg },
-  { name: "Argo CD", image: ArgoImg },
-  { name: "Ansible", image: AnsibleImg },
-  { name: "Helm", image: HelmImg },
-  { name: "Spring Boot", image: SpringImg },
-  { name: "Java", image: JavaImg },
-  { name: "PostgreSQL", image: PostgresImg },
-  { name: "Nginx", image: NginxImg },
-  { name: "Git", image: GitImg },
+  { name: "Docker", image: r2Asset("Docker.png") || DockerImg },
+  { name: "Kubernetes", image: r2Asset("Kubernetes.png") || K8sImg },
+  { name: "Jenkins", image: r2Asset("jenkins.svg") || JenkinsImg },
+  { name: "Argo CD", image: r2Asset("ArgoCD.png") || ArgoImg },
+  { name: "Ansible", image: r2Asset("ansible.png") || AnsibleImg },
+  { name: "Helm", image: r2Asset("Helm.png") || HelmImg },
+  { name: "Spring Boot", image: r2Asset("springboot.png") || SpringImg },
+  { name: "Java", image: r2Asset("Javaicon.png") || JavaImg },
+  { name: "PostgreSQL", image: r2Asset("postgres.png") || PostgresImg },
+  { name: "Nginx", image: r2Asset("Nginx.png") || NginxImg },
+  { name: "Git", image: r2Asset("Git.png") || GitImg },
 ]
 
 export const allTechStack = [...techStackRow1, ...techStackRow2]

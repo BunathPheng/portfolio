@@ -4,11 +4,13 @@ import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import { usePortfolioData } from "@/components/portfolio-data-provider"
+import type { ApiProject } from "@/lib/api"
 import englishImage from "@/portfolio/src/image/English.jpg"
 import selamontyImage from "@/portfolio/src/image/selamonty.png"
 import smartopsImage from "@/portfolio/src/image/Final.png"
 import { Badge } from "@/components/ui/badge"
 import MagneticButton from "@/components/magnetic-button"
+import { r2Asset } from "@/lib/assets"
 
 export default function Projects() {
   const { projects } = usePortfolioData()
@@ -16,6 +18,14 @@ export default function Projects() {
     "English.jpg": englishImage,
     "selamonty.png": selamontyImage,
     "Final.png": smartopsImage,
+  }
+
+  const projectImage = (image: ApiProject["image"]) => {
+    if (typeof image === "string") {
+      return r2Asset(image.split("/").pop() || image) || image
+    }
+
+    return r2Asset(image.src.split("/").pop() || "") || image
   }
 
   return (
@@ -39,7 +49,7 @@ export default function Projects() {
                   <div className="relative glass-frame">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
                       <Image
-                        src={imageMap[project.image as keyof typeof imageMap] || project.image}
+                        src={projectImage(project.image) || imageMap[project.image as keyof typeof imageMap] || project.image}
                         alt={project.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
