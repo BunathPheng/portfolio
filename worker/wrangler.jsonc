@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "portfolio-api",
+  "name": "portfolio",
   "main": "src/index.ts",
   "compatibility_date": "2026-11-07",
   "r2_buckets": [
