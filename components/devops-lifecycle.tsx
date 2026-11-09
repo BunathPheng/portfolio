@@ -55,7 +55,16 @@ export default function DevOpsLifecycle() {
                     className={`lifecycle-map-card flex-1 ${isEven ? "sm:text-left" : "sm:text-right"}`}
                   >
                     <div className={`lifecycle-map-image bg-gradient-to-br ${stage.color}`}>
-                      <img src={stage.image} alt={`${stage.title} technology`} loading="lazy" />
+                      <img
+                        src={stage.image}
+                        alt={`${stage.title} technology`}
+                        loading="lazy"
+                        onError={(event) => {
+                          if (event.currentTarget.src !== "/placeholder.svg") {
+                            event.currentTarget.src = "/placeholder.svg"
+                          }
+                        }}
+                      />
                     </div>
                     <div className="min-w-0">
                       <div className={`flex items-center gap-2 ${isEven ? "sm:justify-start" : "sm:justify-end"}`}>

@@ -6,7 +6,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import MagneticButton from "@/components/magnetic-button"
 import { FadeIn } from "@/components/section-header"
-import { r2Asset } from "@/lib/assets"
+import { localImageFallback, r2Asset } from "@/lib/assets"
 
 const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/bunath-pheng-71a41b318", label: "LinkedIn" },
@@ -151,6 +151,11 @@ export default function Hero() {
                     className="hero-profile-image"
                     priority
                     sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
+                    onError={(event) => {
+                      if (event.currentTarget.src !== localImageFallback) {
+                        event.currentTarget.src = localImageFallback
+                      }
+                    }}
                   />
                   <div className="profile-image-overlay" aria-hidden />
                 </div>
