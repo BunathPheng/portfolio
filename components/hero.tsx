@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import profile from "../portfolio/src/image/Nath.jpg"
 import MagneticButton from "@/components/magnetic-button"
 import { FadeIn } from "@/components/section-header"
+import { r2Asset } from "@/lib/assets"
 
 const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/bunath-pheng-71a41b318", label: "LinkedIn" },
@@ -144,7 +145,7 @@ export default function Hero() {
               >
                 <div className="hero-photo-inner relative aspect-[4/5] w-full overflow-hidden rounded-[1.35rem]">
                   <Image
-                    src={profile}
+                    src={r2Asset("Nath.jpg") || profile}
                     alt="Pheng Bunath — DevOps Engineer & Full-Stack Developer"
                     fill
                     className="hero-profile-image"
