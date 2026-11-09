@@ -1,7 +1,6 @@
 "use client"
 
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
-import Image from "next/image"
 import { SectionHeader, FadeIn } from "@/components/section-header"
 import { usePortfolioData } from "@/components/portfolio-data-provider"
 import type { ApiProject } from "@/lib/api"
@@ -42,16 +41,15 @@ export default function Projects() {
                 >
                   <div className="relative glass-frame">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-                      <Image
+                      <img
                         src={projectImage(project.image)}
                         alt={project.title}
-                        fill
+                        loading="lazy"
                         onError={(event) => {
                           const fallback = r2DevelopmentAsset(projectFilename(project.image))
                           if (event.currentTarget.src !== fallback) event.currentTarget.src = fallback
                         }}
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     </div>
