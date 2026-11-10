@@ -31,14 +31,16 @@ export default async function Home() {
       <Navbar />
       <main className="relative z-0 min-h-screen w-full overflow-x-clip [isolation:isolate]">
         <PagePipeline />
-        <Hero />
-        <About />
+        <div className="relative z-10">
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Education />
+          <Contact />
+        </div>
         <DevOpsLifecycle />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Education />
-        <Contact />
       </main>
       <Footer />
       <ScrollToTop />
