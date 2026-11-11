@@ -8,6 +8,7 @@ import MagneticButton from "@/components/magnetic-button"
 import { FadeIn } from "@/components/section-header"
 import { localImageFallback, r2Asset, r2ImageFallback } from "@/lib/assets"
 import { cycleImageFallback } from "@/lib/image-fallback"
+import { AsciiRipple } from "@/components/ui/ascii-ripple"
 
 const socialLinks = [
   { icon: Linkedin, href: "https://www.linkedin.com/in/bunath-pheng-71a41b318", label: "LinkedIn" },
@@ -65,6 +66,11 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-3 sm:space-y-5"
             >
+              <AsciiRipple
+                text="DEVOPS  •  CLOUD  •  FULL-STACK"
+                ariaLabel="DevOps, cloud, and full-stack development"
+                className="mx-auto lg:mx-0"
+              />
               <p className="hero-kicker text-sm font-medium sm:text-lg md:text-xl">
                 I am a{" "}
                 <motion.span
