@@ -187,6 +187,7 @@ export default function Contact() {
           label="Contact"
           title="Let's work together"
           description="Have a project in mind or want to collaborate? I'd love to hear from you."
+          rippleTitle
         />
 
         <div className="grid gap-8 lg:grid-cols-5 lg:gap-12">
