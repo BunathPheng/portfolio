@@ -10,13 +10,14 @@ export function middleware(request: NextRequest) {
   if (apiOrigin) connectSources.push(apiOrigin)
 
   const contentSecurityPolicy = [
-    "default-src 'self'",
+    "default-src 'none'",
     "base-uri 'self'",
     "object-src 'none'",
     "frame-ancestors 'self'",
     "form-action 'self'",
     `script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com`,
-    "style-src 'self' 'unsafe-inline'",
+    `style-src 'self' 'nonce-${nonce}'`,
+    "style-src-attr 'unsafe-inline'",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data:",
     `connect-src ${connectSources.join(" ")}`,
