@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
+import { headers } from "next/headers"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
@@ -84,11 +85,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const nonce = (await headers()).get("x-nonce") || undefined
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -127,6 +129,7 @@ export default function RootLayout({
       <body className="font-sans">
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
