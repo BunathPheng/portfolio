@@ -11,6 +11,7 @@ import { cycleImageFallback } from "@/lib/image-fallback"
 export default function TumbleWall() {
   const { devopsLifecycle } = usePortfolioData()
   const [resetKey, setResetKey] = useState(0)
+  const [activeCard, setActiveCard] = useState<string | null>(null)
   const wallRef = useRef<HTMLDivElement>(null)
   const tags = [
     "React",
@@ -57,16 +58,22 @@ export default function TumbleWall() {
               <motion.div
                 key={`${tag}-${resetKey}`}
                 drag
+                onDragStart={() => setActiveCard(tag)}
+                onDragEnd={() => setActiveCard(null)}
                 dragConstraints={wallRef}
                 dragElastic={0.2}
                 dragMomentum
                 dragTransition={{ power: 0.35, timeConstant: 220, bounceStiffness: 300, bounceDamping: 22 }}
-                whileTap={{ scale: 1.03 }}
+                whileTap={{ scale: 1.04 }}
                 whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
                 initial={{ y: -260 - index * 16, x: (index % 4) * 72 - 108, rotate: (index % 2 ? 1 : -1) * (8 + index) }}
-                animate={{ y: (index % 3) * 32 - 24, x: (index % 4) * 105 - 155, rotate: (index % 2 ? 1 : -1) * (index + 2) }}
                 transition={{ type: "spring", stiffness: 110, damping: 16, mass: 0.8, delay: index * 0.1 }}
-                className="absolute left-1/2 top-1/2 z-10 cursor-grab touch-none select-none rounded-xl border border-primary/20 bg-background/90 px-4 py-2.5 text-sm font-medium text-foreground shadow-[var(--shadow-elevated)] backdrop-blur-md"
+                animate={{ y: (index % 3) * 32 - 24, x: (index % 4) * 105 - 155, rotate: (index % 2 ? 1 : -1) * (index + 2), scale: activeCard === tag ? 1.04 : 1 }}
+                className={`absolute left-1/2 top-1/2 cursor-grab touch-none select-none rounded-xl border bg-background/90 px-4 py-2.5 text-sm font-medium text-foreground backdrop-blur-md ${
+                  activeCard === tag
+                    ? "z-30 border-primary/50 shadow-[0_18px_40px_hsl(var(--primary)/0.2)]"
+                    : "z-10 border-primary/20 shadow-[var(--shadow-elevated)]"
+                }`}
               >
                 {tag}
               </motion.div>
@@ -76,6 +83,8 @@ export default function TumbleWall() {
               <motion.div
                 key={`${stage.step}-${resetKey}`}
                 drag
+                onDragStart={() => setActiveCard(stage.step)}
+                onDragEnd={() => setActiveCard(null)}
                 dragConstraints={wallRef}
                 dragElastic={0.2}
                 dragMomentum
@@ -83,9 +92,13 @@ export default function TumbleWall() {
                 whileTap={{ scale: 1.03 }}
                 whileDrag={{ scale: 1.1, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
                 initial={{ y: -340 - index * 18, x: index * 30 - 85, rotate: index % 2 ? 10 : -10 }}
-                animate={{ y: index * 13 - 38, x: index * 72 - 180, rotate: index % 2 ? 5 : -5 }}
                 transition={{ type: "spring", stiffness: 105, damping: 17, mass: 0.85, delay: 0.45 + index * 0.11 }}
-                className="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 cursor-grab touch-none select-none items-center justify-center rounded-2xl border border-border/60 bg-card/95 p-3 shadow-[var(--shadow-elevated)] backdrop-blur-md"
+                animate={{ y: index * 13 - 38, x: index * 72 - 180, rotate: index % 2 ? 5 : -5, scale: activeCard === stage.step ? 1.08 : 1 }}
+                className={`absolute left-1/2 top-1/2 flex h-16 w-16 cursor-grab touch-none select-none items-center justify-center rounded-2xl border bg-card/95 p-3 backdrop-blur-md ${
+                  activeCard === stage.step
+                    ? "z-30 border-primary/50 shadow-[0_18px_40px_hsl(var(--primary)/0.2)]"
+                    : "z-10 border-border/60 shadow-[var(--shadow-elevated)]"
+                }`}
               >
                 <img
                   src={stage.image}
