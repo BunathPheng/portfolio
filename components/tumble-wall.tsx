@@ -8,21 +8,60 @@ import { usePortfolioData } from "@/components/portfolio-data-provider"
 import { localImageFallback, r2ImageFallback } from "@/lib/assets"
 import { cycleImageFallback } from "@/lib/image-fallback"
 
+type CardPosition = {
+  x: number
+  y: number
+  rotate: number
+}
+
+const tags = ["React", "Next.js", "TypeScript", "Docker", "Kubernetes", "GitOps", "CI/CD", "Observability"]
+
+function createPositions(stageCount: number) {
+  const positions: Record<string, CardPosition> = {}
+
+  tags.forEach((tag, index) => {
+    positions[tag] = {
+      x: (index % 4) * 105 - 155,
+      y: (index % 3) * 32 - 24,
+      rotate: (index % 2 ? 1 : -1) * (index + 2),
+    }
+  })
+
+  for (let index = 0; index < stageCount; index += 1) {
+    positions[`stage-${index}`] = {
+      x: index * 72 - 180,
+      y: index * 13 - 38,
+      rotate: index % 2 ? 5 : -5,
+    }
+  }
+
+  return positions
+}
+
 export default function TumbleWall() {
   const { devopsLifecycle } = usePortfolioData()
   const [resetKey, setResetKey] = useState(0)
   const [activeCard, setActiveCard] = useState<string | null>(null)
+  const [positions, setPositions] = useState(() => createPositions(Math.min(devopsLifecycle.length, 6)))
   const wallRef = useRef<HTMLDivElement>(null)
-  const tags = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Docker",
-    "Kubernetes",
-    "GitOps",
-    "CI/CD",
-    "Observability",
-  ]
+
+  const resetWall = () => {
+    setActiveCard(null)
+    setPositions(createPositions(Math.min(devopsLifecycle.length, 6)))
+    setResetKey((key) => key + 1)
+  }
+
+  const settleCard = (id: string, offset: { x: number; y: number }) => {
+    setActiveCard(null)
+    setPositions((current) => ({
+      ...current,
+      [id]: {
+        ...current[id],
+        x: current[id].x + offset.x,
+        y: current[id].y + offset.y,
+      },
+    }))
+  }
 
   return (
     <section id="ui-playground" className="section-spacing">
@@ -46,7 +85,7 @@ export default function TumbleWall() {
             </div>
             <button
               type="button"
-              onClick={() => setResetKey((key) => key + 1)}
+              onClick={resetWall}
               className="absolute right-5 top-5 z-20 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-md transition-colors hover:border-primary/40 hover:text-primary"
               aria-label="Reset the Tumble Wall"
             >
@@ -59,7 +98,7 @@ export default function TumbleWall() {
                 key={`${tag}-${resetKey}`}
                 drag
                 onDragStart={() => setActiveCard(tag)}
-                onDragEnd={() => setActiveCard(null)}
+                onDragEnd={(_, info) => settleCard(tag, info.offset)}
                 dragConstraints={wallRef}
                 dragElastic={0.2}
                 dragMomentum
@@ -68,7 +107,7 @@ export default function TumbleWall() {
                 whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
                 initial={{ y: -260 - index * 16, x: (index % 4) * 72 - 108, rotate: (index % 2 ? 1 : -1) * (8 + index) }}
                 transition={{ type: "spring", stiffness: 110, damping: 16, mass: 0.8, delay: index * 0.1 }}
-                animate={{ y: (index % 3) * 32 - 24, x: (index % 4) * 105 - 155, rotate: (index % 2 ? 1 : -1) * (index + 2), scale: activeCard === tag ? 1.04 : 1 }}
+                animate={{ ...positions[tag], scale: activeCard === tag ? 1.04 : 1 }}
                 className={`absolute left-1/2 top-1/2 cursor-grab touch-none select-none rounded-xl border bg-background/90 px-4 py-2.5 text-sm font-medium text-foreground backdrop-blur-md ${
                   activeCard === tag
                     ? "z-30 border-primary/50 shadow-[0_18px_40px_hsl(var(--primary)/0.2)]"
@@ -84,7 +123,7 @@ export default function TumbleWall() {
                 key={`${stage.step}-${resetKey}`}
                 drag
                 onDragStart={() => setActiveCard(stage.step)}
-                onDragEnd={() => setActiveCard(null)}
+                onDragEnd={(_, info) => settleCard(`stage-${index}`, info.offset)}
                 dragConstraints={wallRef}
                 dragElastic={0.2}
                 dragMomentum
@@ -93,7 +132,7 @@ export default function TumbleWall() {
                 whileDrag={{ scale: 1.1, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
                 initial={{ y: -340 - index * 18, x: index * 30 - 85, rotate: index % 2 ? 10 : -10 }}
                 transition={{ type: "spring", stiffness: 105, damping: 17, mass: 0.85, delay: 0.45 + index * 0.11 }}
-                animate={{ y: index * 13 - 38, x: index * 72 - 180, rotate: index % 2 ? 5 : -5, scale: activeCard === stage.step ? 1.08 : 1 }}
+                animate={{ ...positions[`stage-${index}`], scale: activeCard === stage.step ? 1.08 : 1 }}
                 className={`absolute left-1/2 top-1/2 flex h-16 w-16 cursor-grab touch-none select-none items-center justify-center rounded-2xl border bg-card/95 p-3 backdrop-blur-md ${
                   activeCard === stage.step
                     ? "z-30 border-primary/50 shadow-[0_18px_40px_hsl(var(--primary)/0.2)]"
