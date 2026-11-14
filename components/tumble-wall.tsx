@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { RotateCcw } from "lucide-react"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { FadeIn, SectionHeader } from "@/components/section-header"
 import { usePortfolioData } from "@/components/portfolio-data-provider"
 import { localImageFallback, r2ImageFallback } from "@/lib/assets"
@@ -11,6 +11,7 @@ import { cycleImageFallback } from "@/lib/image-fallback"
 export default function TumbleWall() {
   const { devopsLifecycle } = usePortfolioData()
   const [resetKey, setResetKey] = useState(0)
+  const wallRef = useRef<HTMLDivElement>(null)
   const tags = [
     "React",
     "Next.js",
@@ -33,7 +34,10 @@ export default function TumbleWall() {
         />
 
         <FadeIn>
-          <div className="relative mx-auto h-[28rem] max-w-4xl overflow-hidden rounded-3xl border border-primary/15 bg-gradient-to-br from-primary/[0.06] via-card to-violet-500/[0.08] shadow-[var(--shadow-elevated)]">
+          <div
+            ref={wallRef}
+            className="relative mx-auto h-[28rem] max-w-4xl overflow-hidden rounded-3xl border border-primary/15 bg-gradient-to-br from-primary/[0.06] via-card to-violet-500/[0.08] shadow-[var(--shadow-elevated)]"
+          >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.12),transparent_55%)]" />
             <div className="absolute left-5 top-5 z-20 flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-md">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
@@ -53,13 +57,16 @@ export default function TumbleWall() {
               <motion.div
                 key={`${tag}-${resetKey}`}
                 drag
-                dragConstraints={{ left: -150, right: 150, top: -110, bottom: 110 }}
-                dragElastic={0.75}
-                whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing" }}
-                initial={{ y: -180, x: (index % 4) * 70 - 105, rotate: (index % 2 ? 1 : -1) * (8 + index) }}
+                dragConstraints={wallRef}
+                dragElastic={0.2}
+                dragMomentum
+                dragTransition={{ power: 0.35, timeConstant: 220, bounceStiffness: 300, bounceDamping: 22 }}
+                whileTap={{ scale: 1.03 }}
+                whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
+                initial={{ y: -260 - index * 16, x: (index % 4) * 72 - 108, rotate: (index % 2 ? 1 : -1) * (8 + index) }}
                 animate={{ y: (index % 3) * 32 - 24, x: (index % 4) * 105 - 155, rotate: (index % 2 ? 1 : -1) * (index + 2) }}
-                transition={{ type: "spring", stiffness: 90, damping: 12, delay: index * 0.07 }}
-                className="absolute left-1/2 top-1/2 z-10 cursor-grab touch-none rounded-xl border border-primary/20 bg-background/90 px-4 py-2.5 text-sm font-medium text-foreground shadow-[var(--shadow-elevated)] backdrop-blur-md"
+                transition={{ type: "spring", stiffness: 110, damping: 16, mass: 0.8, delay: index * 0.1 }}
+                className="absolute left-1/2 top-1/2 z-10 cursor-grab touch-none select-none rounded-xl border border-primary/20 bg-background/90 px-4 py-2.5 text-sm font-medium text-foreground shadow-[var(--shadow-elevated)] backdrop-blur-md"
               >
                 {tag}
               </motion.div>
@@ -69,13 +76,16 @@ export default function TumbleWall() {
               <motion.div
                 key={`${stage.step}-${resetKey}`}
                 drag
-                dragConstraints={{ left: -160, right: 160, top: -120, bottom: 120 }}
-                dragElastic={0.8}
-                whileDrag={{ scale: 1.08, zIndex: 30, cursor: "grabbing" }}
-                initial={{ y: -260, x: index * 30 - 85, rotate: index % 2 ? 10 : -10 }}
+                dragConstraints={wallRef}
+                dragElastic={0.2}
+                dragMomentum
+                dragTransition={{ power: 0.35, timeConstant: 220, bounceStiffness: 300, bounceDamping: 22 }}
+                whileTap={{ scale: 1.03 }}
+                whileDrag={{ scale: 1.1, zIndex: 30, cursor: "grabbing", boxShadow: "0 18px 40px hsl(var(--primary) / 0.2)" }}
+                initial={{ y: -340 - index * 18, x: index * 30 - 85, rotate: index % 2 ? 10 : -10 }}
                 animate={{ y: index * 13 - 38, x: index * 72 - 180, rotate: index % 2 ? 5 : -5 }}
-                transition={{ type: "spring", stiffness: 85, damping: 13, delay: 0.35 + index * 0.08 }}
-                className="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 cursor-grab touch-none items-center justify-center rounded-2xl border border-border/60 bg-card/95 p-3 shadow-[var(--shadow-elevated)] backdrop-blur-md"
+                transition={{ type: "spring", stiffness: 105, damping: 17, mass: 0.85, delay: 0.45 + index * 0.11 }}
+                className="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 cursor-grab touch-none select-none items-center justify-center rounded-2xl border border-border/60 bg-card/95 p-3 shadow-[var(--shadow-elevated)] backdrop-blur-md"
               >
                 <img
                   src={stage.image}
