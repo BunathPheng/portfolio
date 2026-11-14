@@ -92,7 +92,7 @@ export default function Navbar() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 bottom-0 z-50 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-4">
-      <div className="mx-auto w-full max-w-lg pointer-events-auto md:max-w-3xl lg:max-w-4xl">
+      <div className="pointer-events-auto mx-auto w-full max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl">
         {/* Mobile / tablet icon dock */}
         <nav
           className="glass-panel-elevated isolate flex h-[4.25rem] items-stretch justify-between rounded-2xl px-1 shadow-glass sm:h-[4.5rem] sm:px-2 md:hidden"
@@ -148,7 +148,7 @@ export default function Navbar() {
                   key={id}
                   href={href}
                   className={cn(
-                    "relative isolate flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-medium leading-none antialiased transition-colors lg:px-3 lg:text-sm",
+                    "relative isolate flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-medium leading-none antialiased transition-colors lg:px-3 lg:text-sm",
                     isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                   )}
                   aria-current={isActive ? "page" : undefined}
@@ -162,7 +162,7 @@ export default function Navbar() {
                     />
                   )}
                   <Icon className="relative z-10 h-4 w-4 shrink-0" />
-                  <span className="relative z-10 hidden lg:inline">{label}</span>
+                  <span className="relative z-10 hidden whitespace-nowrap xl:inline">{label}</span>
                 </a>
               )
             })}
