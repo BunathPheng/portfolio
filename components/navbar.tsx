@@ -37,24 +37,56 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero")
 
   useEffect(() => {
+    const sectionIds = [
+      "hero",
+      "about",
+      "skills",
+      "projects",
+      "experience",
+      "education",
+      "roadmap",
+      "ui-playground",
+      "contact",
+    ]
+    let frame = 0
+
     const handleScroll = () => {
-      const sections = ["hero", "about", "skills", "projects", "experience", "education", "roadmap", "ui-playground", "contact"]
-      const current = sections.find((section) => {
-        const element = document.getElementById(section)
-        if (!element) return false
-        const rect = element.getBoundingClientRect()
-        return rect.top <= window.innerHeight * 0.42 && rect.bottom >= window.innerHeight * 0.28
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const marker = window.innerHeight * 0.38
+        const sections = sectionIds
+          .map((id) => {
+            const element = document.getElementById(id)
+            if (!element) return null
+            const rect = element.getBoundingClientRect()
+            return { id, distance: Math.abs(rect.top - marker), top: rect.top, bottom: rect.bottom }
+          })
+          .filter((section): section is { id: string; distance: number; top: number; bottom: number } => section !== null)
+
+        const current =
+          sections.find((section) => section.top <= marker && section.bottom > marker) ??
+          sections.filter((section) => section.top <= marker).at(-1) ??
+          sections[0]
+
+        if (current) setActiveSection(current.id)
       })
-      if (current) setActiveSection(current)
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", handleScroll)
     handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
+    }
   }, [])
 
   const mobileActive =
-    activeSection === "experience" || activeSection === "education"
+    activeSection === "experience" ||
+    activeSection === "education" ||
+    activeSection === "roadmap" ||
+    activeSection === "ui-playground"
       ? "projects"
       : activeSection
 
@@ -76,6 +108,7 @@ export default function Navbar() {
                   "relative flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 text-[10px] font-medium transition-colors",
                   isActive ? "text-primary" : "text-muted-foreground"
                 )}
+                aria-current={isActive ? "page" : undefined}
               >
                 {isActive && (
                   <motion.span
@@ -117,6 +150,7 @@ export default function Navbar() {
                     "relative flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-medium transition-colors lg:px-3 lg:text-sm",
                     isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                   )}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {isActive && (
                     <motion.span
