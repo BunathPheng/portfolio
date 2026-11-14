@@ -11,6 +11,8 @@ import ScrollToTop from "@/components/scroll-to-top"
 import AmbientBackground from "@/components/ambient-background"
 import { fallbackPortfolioData, PortfolioDataProvider } from "@/components/portfolio-data-provider"
 import DevOpsLifecycle from "@/components/devops-lifecycle"
+import DevOpsRoadmap from "@/components/devops-roadmap"
+import TumbleWall from "@/components/tumble-wall"
 import PagePipeline from "@/components/page-pipeline"
 import { fetchPortfolio } from "@/lib/api"
 
@@ -38,6 +40,8 @@ export default async function Home() {
           <Projects />
           <Experience />
           <Education />
+          <DevOpsRoadmap />
+          <TumbleWall />
           <Contact />
         </div>
         <DevOpsLifecycle />

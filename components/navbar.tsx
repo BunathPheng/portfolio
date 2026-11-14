@@ -8,6 +8,7 @@ import {
   Home,
   Layers,
   Mail,
+  Map,
   User,
 } from "lucide-react"
 import { motion } from "framer-motion"
@@ -28,6 +29,7 @@ const desktopItems = [
   { href: "#projects", id: "projects", label: "Projects", icon: FolderKanban },
   { href: "#experience", id: "experience", label: "Experience", icon: Briefcase },
   { href: "#education", id: "education", label: "Education", icon: GraduationCap },
+  { href: "#roadmap", id: "roadmap", label: "Roadmap", icon: Map },
   { href: "#contact", id: "contact", label: "Contact", icon: Mail },
 ] as const
 
@@ -36,7 +38,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "about", "skills", "projects", "experience", "education", "contact"]
+      const sections = ["hero", "about", "skills", "projects", "experience", "education", "roadmap", "ui-playground", "contact"]
       const current = sections.find((section) => {
         const element = document.getElementById(section)
         if (!element) return false
