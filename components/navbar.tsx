@@ -95,7 +95,7 @@ export default function Navbar() {
       <div className="mx-auto w-full max-w-lg pointer-events-auto md:max-w-3xl lg:max-w-4xl">
         {/* Mobile / tablet icon dock */}
         <nav
-          className="glass-panel-elevated flex h-[4.25rem] items-stretch justify-between rounded-2xl px-1 shadow-glass sm:h-[4.5rem] sm:px-2 md:hidden"
+          className="glass-panel-elevated isolate flex h-[4.25rem] items-stretch justify-between rounded-2xl px-1 shadow-glass sm:h-[4.5rem] sm:px-2 md:hidden"
           aria-label="Mobile navigation"
         >
           {mobileTabs.map(({ href, id, label, icon: Icon }) => {
@@ -105,7 +105,7 @@ export default function Navbar() {
                 key={id}
                 href={href}
                 className={cn(
-                  "relative flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 text-[10px] font-medium transition-colors",
+                  "relative isolate flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-1 text-[10px] font-medium leading-none antialiased transition-colors",
                   isActive ? "text-primary" : "text-muted-foreground"
                 )}
                 aria-current={isActive ? "page" : undefined}
@@ -113,12 +113,13 @@ export default function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="mobile-nav-pill"
-                    className="absolute inset-1 rounded-xl bg-primary/10"
+                    aria-hidden
+                    className="pointer-events-none absolute inset-1 z-0 rounded-xl bg-primary/10"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   />
                 )}
-                <Icon className="relative h-[18px] w-[18px] sm:h-5 sm:w-5" />
-                <span className="relative truncate">{label}</span>
+                <Icon className="relative z-10 h-[18px] w-[18px] sm:h-5 sm:w-5" />
+                <span className="relative z-10 truncate">{label}</span>
               </a>
             )
           })}
@@ -129,12 +130,12 @@ export default function Navbar() {
 
         {/* Desktop dock */}
         <nav
-          className="glass-panel-elevated hidden h-16 items-center justify-between gap-2 rounded-2xl px-3 shadow-glass md:flex"
+          className="glass-panel-elevated isolate hidden h-16 items-center justify-between gap-2 rounded-2xl px-3 shadow-glass md:flex"
           aria-label="Main navigation"
         >
           <a
             href="#hero"
-            className="shrink-0 rounded-xl px-3 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+            className="shrink-0 rounded-xl px-3 py-2 text-sm font-semibold leading-none antialiased text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
           >
             Pheng Bunath
           </a>
@@ -147,7 +148,7 @@ export default function Navbar() {
                   key={id}
                   href={href}
                   className={cn(
-                    "relative flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-medium transition-colors lg:px-3 lg:text-sm",
+                    "relative isolate flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-medium leading-none antialiased transition-colors lg:px-3 lg:text-sm",
                     isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                   )}
                   aria-current={isActive ? "page" : undefined}
@@ -155,12 +156,13 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="desktop-nav-pill"
-                      className="absolute inset-0 rounded-xl bg-primary/10"
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 z-0 rounded-xl bg-primary/10"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <Icon className="relative h-4 w-4 shrink-0" />
-                  <span className="relative hidden lg:inline">{label}</span>
+                  <Icon className="relative z-10 h-4 w-4 shrink-0" />
+                  <span className="relative z-10 hidden lg:inline">{label}</span>
                 </a>
               )
             })}
