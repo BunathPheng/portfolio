@@ -23,7 +23,9 @@ function headers(env: Env, contentType = "application/json") {
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Max-Age": "86400",
     "Content-Security-Policy": "default-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+    "Referrer-Policy": "no-referrer",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
   }
 }
 
