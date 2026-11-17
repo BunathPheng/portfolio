@@ -24,6 +24,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up pnpm
+        run: npm install --global pnpm@12.16.1
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --allow-build esbuild --allow-build @parcel/watcher
 
