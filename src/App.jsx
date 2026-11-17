@@ -24,7 +24,7 @@ import Contact from "./Contact";
 function App() {
   const onButtonClick = () => {
     const pdfUrl = "https://drive.google.com/file/d/1x7fqFM2auMSS8N_KpNKfw_-bYdfVGHRf/view";
-    window.open(pdfUrl, "_blank");
+    window.open(pdfUrl, "_blank", "noopener,noreferrer");
   };
   return (
     <>
