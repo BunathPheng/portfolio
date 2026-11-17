@@ -24,6 +24,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --allow-build esbuild --allow-build @parcel/watcher
+
+      - name: Generate coverage report
+        run: pnpm test:coverage
+
       - name: Run SonarQube scan
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6
         with:
@@ -31,6 +37,8 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.organization=bunathpheng
             -Dsonar.projectKey=BunathPheng_portfolio
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=src/App.jsx
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
