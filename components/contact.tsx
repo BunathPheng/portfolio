@@ -106,8 +106,19 @@ export default function Contact() {
 
   const validate = () => {
     if (!formData.name.trim() || formData.name.trim().length < 2) return "Please enter your name."
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailPattern.test(formData.email.trim())) return "Please enter a valid email."
+    const email = formData.email.trim()
+    const [localPart, domain, ...extraParts] = email.split("@")
+    if (
+      !localPart ||
+      !domain ||
+      extraParts.length > 0 ||
+      !domain.includes(".") ||
+      domain.startsWith(".") ||
+      domain.endsWith(".") ||
+      email.includes(" ")
+    ) {
+      return "Please enter a valid email."
+    }
     if (!formData.subject.trim() || formData.subject.trim().length < 3)
       return "Subject should be at least 3 characters."
     if (!formData.message.trim() || formData.message.trim().length < 10)
